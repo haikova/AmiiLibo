@@ -1,46 +1,19 @@
 package io.haikova.amiilibo.data
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
+import javax.inject.Inject
 
-class AmiiboRemoteDataSource {
+class AmiiboRemoteDataSource @Inject constructor(
+  private val api: AmiiboApi
+) : AmiiboDataSource {
 
-  private val retrofit: Retrofit by lazy {
-    Retrofit.Builder()
-      .baseUrl("https://www.amiiboapi.com/api/")
-      .addConverterFactory(GsonConverterFactory.create())
-      .build()
-  }
-
-  private val api: AmiiboApi by lazy { retrofit.create(AmiiboApi::class.java) }
-
-  suspend fun getAllAmiibo(): List<AmiiboModel> {
+  override suspend fun getAllAmiibo(): List<AmiiboModel> {
     return api.getAllAmiibo().model()
-  }
-
-  suspend fun getAllAmiiboType(): List<String> {
-    return api.getAllAmiiboType().model()
-  }
-
-  suspend fun getAllAmiiboGameSeries(): List<String> {
-    return api.getAllAmiiboGameSeries().model()
-  }
-
-  suspend fun getAllAmiiboSeries(): List<String> {
-    return api.getAllAmiiboSeries().model()
-  }
-
-  suspend fun getAllAmiiboCharacters(): List<String> {
-    return api.getAllAmiiboCharacters().model()
   }
 }
 
 private fun AmiiboResponseDto.model(): List<AmiiboModel> {
   return amiibo.map { it.model() }
-}
-
-private fun AmiiboOptionsResponseDto.model(): List<String> {
-  return amiiboOptions.map { it.name }
 }
 
 private fun AmiiboDto.model(): AmiiboModel {
@@ -58,6 +31,6 @@ private fun AmiiboDto.model(): AmiiboModel {
       "na" to this.release.na
     ),
     tail = this.tail,
-    type = AmiiboType.valueOf(this.type)
+    type = AmiiboType.valueOf(this.type.toUpperCase(Locale.getDefault()))
   )
 }

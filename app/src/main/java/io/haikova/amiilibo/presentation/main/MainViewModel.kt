@@ -1,19 +1,23 @@
 package io.haikova.amiilibo.presentation.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import io.haikova.amiilibo.data.AmiiboDataSource
 import io.haikova.amiilibo.data.AmiiboModel
-import io.haikova.amiilibo.data.AmiiboRemoteDataSource
+import io.haikova.amiilibo.data.AmiiboRepository
 import io.haikova.amiilibo.presentation.common.ListItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+  private val amiiboRepository: AmiiboRepository
 
-  val temp = AmiiboRemoteDataSource()
+) : ViewModel() {
 
   private val _amiiboData: MutableLiveData<List<ListItem>> by lazy {
     MutableLiveData<List<ListItem>>()
@@ -27,251 +31,9 @@ class MainViewModel : ViewModel() {
   private fun loadAmiiboData() {
     viewModelScope.launch(Dispatchers.IO) {
       _amiiboData.postValue(
-        temp.getAllAmiibo().map { it.map() }
+        amiiboRepository.getAllAmiibo().map { it.map() }
       )
     }
-  }
-
-  private fun loadAmiiboThumbOneData() {
-    _amiiboData.postValue(
-      listOf(
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        )
-      )
-    )
-  }
-
-  private fun loadAmiiboThumbData() {
-    _amiiboData.postValue(
-      listOf(
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        ),
-
-        AmiiboItem(
-          "00000000", "00340102",
-          "https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_00000000-00340102.png"
-        )
-      )
-    )
   }
 
   private fun AmiiboModel.map(): AmiiboItem {

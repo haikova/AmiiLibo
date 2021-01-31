@@ -16,40 +16,44 @@
 
     <com.google.android.material.chip.ChipGroup
       android:id="@+id/chipGroup"
-      android:padding="16dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:padding="16dp"
       app:singleLine="true">
 
       <com.google.android.material.chip.Chip
+        android:id="@+id/chipList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:text="All" />
 
       <com.google.android.material.chip.Chip
+        android:id="@+id/chipSeries"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Series" />
 
       <com.google.android.material.chip.Chip
+        android:id="@+id/chipGameSeries"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Game series" />
 
       <com.google.android.material.chip.Chip
+        android:id="@+id/chipType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Type" />
 
       <com.google.android.material.chip.Chip
+        android:id="@+id/chipCharacter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Character" />
 
     </com.google.android.material.chip.ChipGroup>
-
   </HorizontalScrollView>
-
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerViewAmiibo"
