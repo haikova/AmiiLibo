@@ -58,6 +58,16 @@ class MainFragment : Fragment() {
       amiiboAdapter.items = data
       amiiboAdapter.notifyDataSetChanged()
     })
+
+    viewModel.isProgressShow.observe(viewLifecycleOwner) { show ->
+      when(show) {
+        true -> binding.progressBar.visibility = View.VISIBLE
+        false -> binding.progressBar.visibility = View.INVISIBLE
+      }
+    }
+    viewModel.amiiboOptions.observe(viewLifecycleOwner) {
+      viewModel.getAmiiboByOptions(it)
+    }
   }
 
   override fun onDestroyView() {
@@ -78,6 +88,7 @@ class MainFragment : Fragment() {
           AmiiboOptionsType.AMIIBO_TYPE -> binding.chipType.text = title
           AmiiboOptionsType.CHARACTER -> binding.chipCharacter.text = title
         }
+        viewModel.updateAmiiboOptions(type, title)
       }
 
       show(this@MainFragment.childFragmentManager, "tag")

@@ -55,6 +55,18 @@
     </com.google.android.material.chip.ChipGroup>
   </HorizontalScrollView>
 
+  <ProgressBar
+    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+    android:id="@+id/progressBar"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:indeterminate="true"
+    android:visibility="invisible"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/scrollViewSelector"
+    />
+
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerViewAmiibo"
     android:layout_width="0dp"
@@ -63,7 +75,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/scrollViewSelector"
+    app:layout_constraintTop_toBottomOf="@id/progressBar"
     app:spanCount="5"
     tools:listitem="@layout/item_home_amiibo" />
 

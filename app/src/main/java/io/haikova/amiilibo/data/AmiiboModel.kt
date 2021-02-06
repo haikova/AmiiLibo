@@ -1,6 +1,7 @@
 package io.haikova.amiilibo.data
 
 data class AmiiboModel(
+  val id: String,
   val amiiboSeries : String,
   val character : String,
   val gameSeries : String,

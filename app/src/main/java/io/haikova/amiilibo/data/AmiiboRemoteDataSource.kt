@@ -10,6 +10,18 @@ class AmiiboRemoteDataSource @Inject constructor(
   override suspend fun getAllAmiibo(): List<AmiiboModel> {
     return api.getAllAmiibo().model()
   }
+
+  override fun saveAllAmiibo(amiiboList: List<AmiiboModel>) {
+  }
+
+  override fun getAmiiboByOptions(
+    amiiboSeries: String?,
+    gameSeries: String?,
+    amiiboType: String?,
+    character: String?
+  ): List<AmiiboModel> {
+    return emptyList()
+  }
 }
 
 private fun AmiiboResponseDto.model(): List<AmiiboModel> {
@@ -18,6 +30,7 @@ private fun AmiiboResponseDto.model(): List<AmiiboModel> {
 
 private fun AmiiboDto.model(): AmiiboModel {
   return AmiiboModel(
+    id = this.head + this.tail,
     amiiboSeries = this.amiiboSeries,
     character = this.character,
     gameSeries = this.gameSeries,
