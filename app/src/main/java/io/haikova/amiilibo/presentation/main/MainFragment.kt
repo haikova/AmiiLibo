@@ -147,6 +147,7 @@ class MainFragment : Fragment() {
 
   fun openDetailsScreen(itemId: String) {
     requireActivity().supportFragmentManager.commit {
+      addToBackStack(null)
       replace<AmiiboDetailsFragment>(
         containerViewId = R.id.fragmentContainer,
         tag = null,
