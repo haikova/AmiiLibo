@@ -1,6 +1,5 @@
 package io.haikova.amiilibo.presentation.main
 
-import android.util.Log
 import com.bumptech.glide.RequestManager
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import io.haikova.amiilibo.databinding.ItemHomeAmiiboBinding
@@ -15,12 +14,10 @@ object MainAdapterDelegates {
     { layoutInflater, root -> ItemHomeAmiiboBinding.inflate(layoutInflater, root, false) }
   ) {
 
-    Log.d("meow", "qqq")
-/*    binding.imageViewAmiibo.setOnClickListener {
+    binding.imageViewAmiibo.setOnClickListener {
       itemClickedListener(item)
-    }*/
+    }
     bind {
-      Log.d("meow", "www")
       glide
         .load(item.image)
         .into(binding.imageViewAmiibo)

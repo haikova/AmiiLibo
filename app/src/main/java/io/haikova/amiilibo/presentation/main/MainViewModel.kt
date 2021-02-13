@@ -1,24 +1,23 @@
 package io.haikova.amiilibo.presentation.main
 
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.haikova.amiilibo.data.AmiiboDataSource
 import io.haikova.amiilibo.data.AmiiboModel
 import io.haikova.amiilibo.data.AmiiboRepository
-import io.haikova.amiilibo.data.AmiiboType
 import io.haikova.amiilibo.presentation.common.ListItem
 import io.haikova.amiilibo.presentation.options.AmiiboOptionsType
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
   private val amiiboRepository: AmiiboRepository
-
 ) : ViewModel() {
 
   private val _amiiboData: MutableLiveData<List<ListItem>> by lazy {
@@ -61,7 +60,7 @@ class MainViewModel @Inject constructor(
     }
   }
 
-  fun updateAmiiboOptions(type: AmiiboOptionsType, value: String) {
+  fun updateAmiiboOptions(type: AmiiboOptionsType, value: String?) {
     when (type) {
       AmiiboOptionsType.LIST -> {
       }
@@ -72,11 +71,11 @@ class MainViewModel @Inject constructor(
         )
       }
       AmiiboOptionsType.GAME_SERIES -> {
-      _amiiboOptions.postValue(
-        _amiiboOptions.value?.copy(gameSeries = value)
-          ?: AmiiboOptionsData(gameSeries = value)
-      )
-    }
+        _amiiboOptions.postValue(
+          _amiiboOptions.value?.copy(gameSeries = value)
+            ?: AmiiboOptionsData(gameSeries = value)
+        )
+      }
       AmiiboOptionsType.AMIIBO_TYPE -> {
         _amiiboOptions.postValue(
           _amiiboOptions.value?.copy(amiiboType = value)
@@ -100,4 +99,9 @@ class MainViewModel @Inject constructor(
       image = this.image
     )
   }
+
+  private fun isDataUpToDate() {
+
+  }
+
 }

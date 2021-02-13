@@ -2,11 +2,13 @@ package io.haikova.amiilibo.data
 
 import io.haikova.amiilibo.data.db.AmiiboDao
 import io.haikova.amiilibo.data.db.AmiiboEntity
+import io.haikova.amiilibo.presentation.main.AmiiboPreferences
 import java.util.*
 import javax.inject.Inject
 
 class AmiiboLocalDataSource @Inject constructor(
-  private val amiiboDao: AmiiboDao
+  private val amiiboDao: AmiiboDao,
+  private val amiiboPreferences: AmiiboPreferences
 ) : AmiiboDataSource {
 
   override suspend fun getAllAmiibo(): List<AmiiboModel> {
@@ -29,6 +31,10 @@ class AmiiboLocalDataSource @Inject constructor(
       amiiboType = amiiboType,
       character =character
       ).map { it.model() }
+  }
+
+  override suspend fun getDataLastUpdate(): String? {
+    return amiiboPreferences.lastDataUpdate
   }
 
   private fun AmiiboEntity.model(): AmiiboModel {

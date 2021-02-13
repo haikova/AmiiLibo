@@ -18,4 +18,7 @@ interface AmiiboApi {
 
   @GET("character")
   suspend fun getAllAmiiboCharacters(): AmiiboOptionsResponseDto
+
+  @GET("lastupdated")
+  suspend fun getDataLastUpdate(): LastUpdateDto
 }

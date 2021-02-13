@@ -9,4 +9,6 @@ interface AmiiboDataSource {
     amiiboType: String?,
     character: String?
   ): List<AmiiboModel>
+
+  suspend fun getDataLastUpdate(): String?
 }

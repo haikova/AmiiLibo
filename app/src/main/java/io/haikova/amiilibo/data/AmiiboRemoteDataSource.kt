@@ -22,6 +22,10 @@ class AmiiboRemoteDataSource @Inject constructor(
   ): List<AmiiboModel> {
     return emptyList()
   }
+
+  override suspend fun getDataLastUpdate(): String {
+    return api.getDataLastUpdate().lastUpdated
+  }
 }
 
 private fun AmiiboResponseDto.model(): List<AmiiboModel> {

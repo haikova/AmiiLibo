@@ -5,18 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.*
 import com.bumptech.glide.Glide
-import com.google.android.material.chip.Chip
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.FragmentMainBinding
-import io.haikova.amiilibo.databinding.FragmentOptionsBinding
+import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsFragment
 import io.haikova.amiilibo.presentation.options.AmiiboOptionsType
 import io.haikova.amiilibo.presentation.options.OptionsDialogFragment
 import io.haikova.amiilibo.presentation.options.OptionsDialogFragment.Companion.OPTIONS_TYPE
-import io.haikova.amiilibo.presentation.options.OptionsViewModel
+
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -27,7 +26,10 @@ class MainFragment : Fragment() {
   private val glide by lazy { Glide.with(this) }
   private val amiiboAdapter by lazy {
     ListDelegationAdapter(
-      MainAdapterDelegates.amiiboDelegate(glide) { }
+      MainAdapterDelegates.amiiboDelegate(glide) {
+        Log.d("meow", "qqq")
+        openDetailsScreen()
+      }
     )
   }
 
@@ -51,6 +53,38 @@ class MainFragment : Fragment() {
       chipGameSeries.setOnClickListener { openOptionsDialog(AmiiboOptionsType.GAME_SERIES) }
       chipType.setOnClickListener { openOptionsDialog(AmiiboOptionsType.AMIIBO_TYPE) }
       chipCharacter.setOnClickListener { openOptionsDialog(AmiiboOptionsType.CHARACTER) }
+
+      chipList.setOnCloseIconClickListener {
+
+         }
+      chipSeries.setOnCloseIconClickListener {
+        chipSeries.apply {
+          text = "Series"
+          isCloseIconVisible = false
+          viewModel.updateAmiiboOptions(AmiiboOptionsType.AMIIBO_SERIES, null)
+        }
+      }
+      chipGameSeries.setOnCloseIconClickListener {
+        chipGameSeries.apply {
+          text = "Game series"
+          isCloseIconVisible = false
+          viewModel.updateAmiiboOptions(AmiiboOptionsType.GAME_SERIES, null)
+      }
+    }
+      chipType.setOnCloseIconClickListener {
+        chipType.apply {
+          text = "Type"
+          isCloseIconVisible = false
+          viewModel.updateAmiiboOptions(AmiiboOptionsType.AMIIBO_TYPE, null)
+        }
+      }
+      chipCharacter.setOnCloseIconClickListener {
+        chipCharacter.apply {
+          text = "Character"
+          isCloseIconVisible = false
+          viewModel.updateAmiiboOptions(AmiiboOptionsType.CHARACTER, null)
+        }
+      }
     }
 
 
@@ -82,16 +116,37 @@ class MainFragment : Fragment() {
       }
       action = { type, title ->
         when (type) {
-          AmiiboOptionsType.LIST -> binding.chipList.text = title
-          AmiiboOptionsType.AMIIBO_SERIES -> binding.chipSeries.text = title
-          AmiiboOptionsType.GAME_SERIES -> binding.chipGameSeries.text = title
-          AmiiboOptionsType.AMIIBO_TYPE -> binding.chipType.text = title
-          AmiiboOptionsType.CHARACTER -> binding.chipCharacter.text = title
+          AmiiboOptionsType.LIST -> binding.chipList.apply {
+            text = title
+            isCloseIconVisible = true
+          }
+          AmiiboOptionsType.AMIIBO_SERIES -> binding.chipSeries.apply {
+            text = title
+            isCloseIconVisible = true
+          }
+          AmiiboOptionsType.GAME_SERIES -> binding.chipGameSeries.apply {
+            text = title
+            isCloseIconVisible = true
+          }
+          AmiiboOptionsType.AMIIBO_TYPE -> binding.chipType.apply {
+            text = title
+            isCloseIconVisible = true
+          }
+          AmiiboOptionsType.CHARACTER -> binding.chipCharacter.apply {
+            text = title
+            isCloseIconVisible = true
+          }
         }
         viewModel.updateAmiiboOptions(type, title)
       }
 
       show(this@MainFragment.childFragmentManager, "tag")
+    }
+  }
+
+  fun openDetailsScreen() {
+    requireActivity().supportFragmentManager.commit {
+      replace<AmiiboDetailsFragment>(R.id.fragmentContainer)
     }
   }
 }

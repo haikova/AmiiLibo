@@ -1,5 +1,6 @@
 package io.haikova.amiilibo.data
 
+import android.content.SharedPreferences
 import io.haikova.amiilibo.presentation.main.AmiiboOptionsData
 import io.haikova.amiilibo.presentation.main.LocalDataSource
 import io.haikova.amiilibo.presentation.main.RemoteDataSource
@@ -10,8 +11,12 @@ class AmiiboRepositoryImpl @Inject constructor(
   @LocalDataSource val localDataSource: AmiiboDataSource
 ) : AmiiboRepository {
   override suspend fun getAllAmiibo(): List<AmiiboModel> {
-    localDataSource.saveAllAmiibo(remoteDataSource.getAllAmiibo())
-    return localDataSource.getAllAmiibo()
+    return if (isDataUpToDate()) {
+      localDataSource.getAllAmiibo()
+    } else {
+      localDataSource.saveAllAmiibo(remoteDataSource.getAllAmiibo())
+      localDataSource.getAllAmiibo()
+    }
   }
 
   override suspend fun getAmiiboByOptions(
@@ -23,5 +28,9 @@ class AmiiboRepositoryImpl @Inject constructor(
       amiiboOptionsData.amiiboType,
       amiiboOptionsData.character
     )
+  }
+
+  private suspend fun isDataUpToDate(): Boolean {
+    return remoteDataSource.getDataLastUpdate() == localDataSource.getDataLastUpdate()
   }
 }

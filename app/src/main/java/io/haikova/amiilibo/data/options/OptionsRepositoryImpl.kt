@@ -13,18 +13,18 @@ class OptionsRepositoryImpl @Inject constructor(
   }
 
   override suspend fun getAmiiboSeriesOptions(): List<String> {
-    return remoteDataSource.getAllAmiiboSeries()
+    return remoteDataSource.getAllAmiiboSeries().distinct()
   }
 
   override suspend fun getGameSeriesOptions(): List<String> {
-    return remoteDataSource.getAllAmiiboGameSeries()
+    return remoteDataSource.getAllAmiiboGameSeries().distinct()
   }
 
   override suspend fun getAmiiboTypeOptions(): List<String> {
-    return remoteDataSource.getAllAmiiboType()
+    return remoteDataSource.getAllAmiiboType().distinct()
   }
 
   override suspend fun getCharacterOptions(): List<String> {
-    return remoteDataSource.getAllAmiiboCharacters()
+    return remoteDataSource.getAllAmiiboCharacters().distinct()
   }
 }
