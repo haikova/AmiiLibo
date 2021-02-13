@@ -9,7 +9,7 @@ data class AmiiboDto (
   @SerializedName("head") val head : String,
   @SerializedName("image") val image : String,
   @SerializedName("name") val name : String,
-  @SerializedName("release") val release : AmiiboReleaseDto,
+  @SerializedName("release") val release : AmiiboReleaseDto?,
   @SerializedName("tail") val tail : String,
   @SerializedName("type") val type : String
 )

@@ -26,6 +26,10 @@ class AmiiboRemoteDataSource @Inject constructor(
   override suspend fun getDataLastUpdate(): String {
     return api.getDataLastUpdate().lastUpdated
   }
+
+  override suspend fun getAmiiboDetails(id: String): AmiiboModel {
+    TODO("Not yet implemented")
+  }
 }
 
 private fun AmiiboResponseDto.model(): List<AmiiboModel> {
@@ -41,12 +45,14 @@ private fun AmiiboDto.model(): AmiiboModel {
     head = this.head,
     image = this.image,
     name = this.name,
-    releaseCountryMap = mapOf(
-      "au" to this.release.au,
-      "eu" to this.release.eu,
-      "jp" to this.release.jp,
-      "na" to this.release.na
-    ),
+    releaseCountryMap = this.release?.let {
+      mapOf(
+        "au" to this.release.au,
+        "eu" to this.release.eu,
+        "jp" to this.release.jp,
+        "na" to this.release.na
+      )
+    } ?: emptyMap(),
     tail = this.tail,
     type = AmiiboType.valueOf(this.type.toUpperCase(Locale.getDefault()))
   )

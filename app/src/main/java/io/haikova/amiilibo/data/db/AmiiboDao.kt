@@ -27,4 +27,10 @@ interface AmiiboDao {
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insertAllAmiibo(amiiboList: List<AmiiboEntity>)
+
+  @Query(
+    """SELECT * FROM amiiboentity
+    WHERE id = :idItem"""
+  )
+  fun getAmiiboDetails(idItem: String): AmiiboEntity
 }

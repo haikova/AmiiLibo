@@ -94,6 +94,7 @@ class MainViewModel @Inject constructor(
 
   private fun AmiiboModel.map(): AmiiboItem {
     return AmiiboItem(
+      id = this.id,
       head = this.head,
       tail = this.tail,
       image = this.image

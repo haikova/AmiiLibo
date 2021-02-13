@@ -11,4 +11,5 @@ interface AmiiboDataSource {
   ): List<AmiiboModel>
 
   suspend fun getDataLastUpdate(): String?
+  suspend fun getAmiiboDetails(id: String): AmiiboModel
 }

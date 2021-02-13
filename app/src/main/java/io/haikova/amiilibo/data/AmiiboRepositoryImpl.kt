@@ -33,4 +33,8 @@ class AmiiboRepositoryImpl @Inject constructor(
   private suspend fun isDataUpToDate(): Boolean {
     return remoteDataSource.getDataLastUpdate() == localDataSource.getDataLastUpdate()
   }
+
+  override suspend fun getAmiiboDetails(id: String): AmiiboModel {
+    return localDataSource.getAmiiboDetails(id)
+  }
 }

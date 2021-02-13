@@ -8,7 +8,7 @@ data class AmiiboModel(
   val head : String,
   val image : String,
   val name : String,
-  val releaseCountryMap: Map<String, String>,
+  val releaseCountryMap: Map<String, String?>,
   val tail : String,
   val type : AmiiboType
 )

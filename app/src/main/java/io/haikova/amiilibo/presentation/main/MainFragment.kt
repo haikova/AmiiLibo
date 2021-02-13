@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.FragmentMainBinding
 import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsFragment
+import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsFragment.Companion.ITEM_ID
 import io.haikova.amiilibo.presentation.options.AmiiboOptionsType
 import io.haikova.amiilibo.presentation.options.OptionsDialogFragment
 import io.haikova.amiilibo.presentation.options.OptionsDialogFragment.Companion.OPTIONS_TYPE
@@ -28,7 +29,7 @@ class MainFragment : Fragment() {
     ListDelegationAdapter(
       MainAdapterDelegates.amiiboDelegate(glide) {
         Log.d("meow", "qqq")
-        openDetailsScreen()
+        openDetailsScreen(it.id)
       }
     )
   }
@@ -56,7 +57,7 @@ class MainFragment : Fragment() {
 
       chipList.setOnCloseIconClickListener {
 
-         }
+      }
       chipSeries.setOnCloseIconClickListener {
         chipSeries.apply {
           text = "Series"
@@ -69,8 +70,8 @@ class MainFragment : Fragment() {
           text = "Game series"
           isCloseIconVisible = false
           viewModel.updateAmiiboOptions(AmiiboOptionsType.GAME_SERIES, null)
+        }
       }
-    }
       chipType.setOnCloseIconClickListener {
         chipType.apply {
           text = "Type"
@@ -94,7 +95,7 @@ class MainFragment : Fragment() {
     })
 
     viewModel.isProgressShow.observe(viewLifecycleOwner) { show ->
-      when(show) {
+      when (show) {
         true -> binding.progressBar.visibility = View.VISIBLE
         false -> binding.progressBar.visibility = View.INVISIBLE
       }
@@ -144,9 +145,15 @@ class MainFragment : Fragment() {
     }
   }
 
-  fun openDetailsScreen() {
+  fun openDetailsScreen(itemId: String) {
     requireActivity().supportFragmentManager.commit {
-      replace<AmiiboDetailsFragment>(R.id.fragmentContainer)
+      replace<AmiiboDetailsFragment>(
+        containerViewId = R.id.fragmentContainer,
+        tag = null,
+        args = Bundle().apply {
+          putString(ITEM_ID, itemId)
+        }
+      )
     }
   }
 }

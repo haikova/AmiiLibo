@@ -37,6 +37,11 @@ class AmiiboLocalDataSource @Inject constructor(
     return amiiboPreferences.lastDataUpdate
   }
 
+
+  override suspend fun getAmiiboDetails(id: String): AmiiboModel {
+    return amiiboDao.getAmiiboDetails(id).model()
+  }
+
   private fun AmiiboEntity.model(): AmiiboModel {
     return AmiiboModel(
       id = id,
