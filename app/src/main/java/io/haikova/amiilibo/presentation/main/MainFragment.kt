@@ -13,6 +13,7 @@ import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.FragmentMainBinding
 import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsFragment
 import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsFragment.Companion.ITEM_ID
+import io.haikova.amiilibo.presentation.main.adapter.MainAdapterDelegates
 import io.haikova.amiilibo.presentation.options.AmiiboOptionsType
 import io.haikova.amiilibo.presentation.options.OptionsDialogFragment
 import io.haikova.amiilibo.presentation.options.OptionsDialogFragment.Companion.OPTIONS_TYPE

@@ -3,7 +3,7 @@ package io.haikova.amiilibo.presentation.amiibo
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.haikova.amiilibo.data.AmiiboModel
-import io.haikova.amiilibo.data.AmiiboRepositoryImpl
+import io.haikova.amiilibo.data.amiibo.AmiiboRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject

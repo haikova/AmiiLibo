@@ -1,4 +1,4 @@
-package io.haikova.amiilibo.presentation.main
+package io.haikova.amiilibo.presentation.main.adapter
 
 import com.bumptech.glide.RequestManager
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding

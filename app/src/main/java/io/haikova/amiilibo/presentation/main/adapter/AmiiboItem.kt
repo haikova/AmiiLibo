@@ -1,4 +1,4 @@
-package io.haikova.amiilibo.presentation.main
+package io.haikova.amiilibo.presentation.main.adapter
 
 import io.haikova.amiilibo.presentation.common.ListItem
 

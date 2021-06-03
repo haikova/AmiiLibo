@@ -1,4 +1,4 @@
-package io.haikova.amiilibo.presentation.options
+package io.haikova.amiilibo.presentation.options.di
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.Binds
@@ -7,10 +7,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import io.haikova.amiilibo.data.options.OptionsDataSource
-import io.haikova.amiilibo.data.options.OptionsRemoteDataSource
-import io.haikova.amiilibo.data.options.OptionsRepository
-import io.haikova.amiilibo.data.options.OptionsRepositoryImpl
+import io.haikova.amiilibo.data.options.*
+import io.haikova.amiilibo.presentation.options.AmiiboOptionsType
 import io.haikova.amiilibo.presentation.options.AmiiboOptionsType.*
 import io.haikova.amiilibo.presentation.options.OptionsDialogFragment.Companion.OPTIONS_TYPE
 import java.lang.IllegalArgumentException
@@ -20,10 +18,8 @@ import java.lang.IllegalArgumentException
 abstract class OptionsModule {
 
   @Binds
-  abstract fun bindOptionRepository(optionsRepositoryImpl: OptionsRepositoryImpl): OptionsRepository
-
-  @Binds
-  abstract fun bindOptionsDataSource(optionsRemoteDataSource: OptionsRemoteDataSource): OptionsDataSource
+  @ViewModelScoped
+  abstract fun bindOptionsRepository(optionsRepository: OptionsRepositoryImpl): OptionsRepository
 
   companion object {
     @Provides

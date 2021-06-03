@@ -1,4 +1,4 @@
-package io.haikova.amiilibo.data
+package io.haikova.amiilibo.data.api
 
 import retrofit2.http.GET
 

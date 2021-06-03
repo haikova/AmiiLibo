@@ -8,11 +8,11 @@ import androidx.room.Query
 @Dao
 interface AmiiboDao {
 
-  @Query("SELECT * FROM amiiboentity")
+  @Query("SELECT * FROM amiibos")
   fun getAllAmiibo(): List<AmiiboEntity>
 
   @Query(
-    """SELECT * FROM amiiboentity 
+    """SELECT * FROM amiibos 
         WHERE (:amiiboSeries IS NULL OR amiiboSeries LIKE :amiiboSeries) 
         AND (:gameSeries IS NULL OR gameSeries LIKE :gameSeries) 
         AND (:amiiboType IS NULL OR type LIKE :amiiboType) 
@@ -29,8 +29,24 @@ interface AmiiboDao {
   fun insertAllAmiibo(amiiboList: List<AmiiboEntity>)
 
   @Query(
-    """SELECT * FROM amiiboentity
+    """SELECT * FROM amiibos
     WHERE id = :idItem"""
   )
   fun getAmiiboDetails(idItem: String): AmiiboEntity
+
+  @Query("DELETE FROM amiibos")
+  fun clearAmiibos()
+
+  @Query(
+    """SELECT * FROM options
+    WHERE type = :type"""
+  )
+  fun getOptionsByType(type: String): List<OptionEntity>
+
+
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun insertOptions(list: List<OptionEntity>)
+
+  @Query("DELETE FROM options")
+  fun clearOptions()
 }

@@ -7,16 +7,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.haikova.amiilibo.data.AmiiboModel
-import io.haikova.amiilibo.data.AmiiboRepository
+import io.haikova.amiilibo.data.amiibo.AmiiboRepository
+import io.haikova.amiilibo.domain.MainInteractor
 import io.haikova.amiilibo.presentation.common.ListItem
+import io.haikova.amiilibo.presentation.main.adapter.AmiiboItem
 import io.haikova.amiilibo.presentation.options.AmiiboOptionsType
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+  private val mainInteractor: MainInteractor,
   private val amiiboRepository: AmiiboRepository
 ) : ViewModel() {
 
@@ -37,7 +40,19 @@ class MainViewModel @Inject constructor(
 
 
   init {
-    loadAmiiboData()
+    viewModelScope.launch {
+      mainInteractor.getAmiiboData().collect { data ->
+        _amiiboData.postValue(data.map { it.map() })
+      }
+    }
+    viewModelScope.launch {
+      mainInteractor.getProgressData().collect {
+        _isProgressShow.postValue(it)
+      }
+    }
+    viewModelScope.launch {
+      mainInteractor.initAmiibo()
+    }
   }
 
   private fun loadAmiiboData() {
