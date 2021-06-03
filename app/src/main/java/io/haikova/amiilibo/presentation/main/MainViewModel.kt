@@ -50,7 +50,7 @@ class MainViewModel @Inject constructor(
         _isProgressShow.postValue(it)
       }
     }
-    viewModelScope.launch {
+    viewModelScope.launch(Dispatchers.IO) {
       mainInteractor.initAmiibo()
     }
   }

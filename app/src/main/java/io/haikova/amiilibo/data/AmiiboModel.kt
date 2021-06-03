@@ -14,5 +14,5 @@ data class AmiiboModel(
 )
 
 enum class AmiiboType {
-  FIGURE, CARD, YARN
+  FIGURE, CARD, YARN, BAND
 }

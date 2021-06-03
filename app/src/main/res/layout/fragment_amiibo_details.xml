@@ -6,26 +6,6 @@
   android:layout_height="match_parent"
   tools:background="@android:color/holo_purple">
 
-  <ImageView
-    android:id="@+id/amiiboImage"
-    android:layout_width="wrap_content"
-    android:layout_height="300dp"
-    android:layout_marginTop="24dp"
-    android:src="@drawable/amiibo_thumb"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/nameData" />
-
-  <TextView
-    android:id="@+id/nameData"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Princess Zelda"
-    android:textSize="32dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:text="Princess Zelda" />
-
   <View
     android:layout_width="0dp"
     android:layout_height="0dp"
@@ -37,16 +17,36 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="@id/descriptionTopSpace" />
 
+  <ImageView
+    android:id="@+id/amiiboImage"
+    android:layout_width="wrap_content"
+    android:layout_height="300dp"
+    android:layout_marginTop="24dp"
+    android:src="@drawable/amiibo_thumb"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
   <Space
     android:id="@+id/descriptionTopSpace"
     android:layout_width="0dp"
-    android:layout_height="24dp"
-    android:layout_marginTop="24dp"
-    app:layout_constraintBottom_toTopOf="@id/amiiboSeriesTitle"
+    android:layout_height="96dp"
+    app:layout_constraintBottom_toTopOf="@id/nameData"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/amiiboImage" />
+    app:layout_constraintStart_toStartOf="parent" />
 
+  <TextView
+    android:id="@+id/nameData"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="48dp"
+    android:layout_marginTop="8dp"
+    android:text="Princess Zelda"
+    android:textSize="32dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/amiiboImage"
+    tools:text="Princess Zelda" />
 
   <TextView
     android:id="@+id/amiiboSeriesTitle"
@@ -55,7 +55,7 @@
     android:layout_marginStart="48dp"
     android:text="Amiibo Series"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/descriptionTopSpace" />
+    app:layout_constraintTop_toBottomOf="@id/nameData" />
 
   <TextView
     android:id="@+id/amiiboSeriesData"
@@ -111,12 +111,12 @@
     tools:text="Legend of Zelda" />
 
   <TextView
-    android:id="@+id/jpTitle"
+    android:id="@+id/dataTitle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="48dp"
     android:layout_marginTop="12dp"
-    android:text="Japan Release"
+    android:text="Realesed"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/gameSeriesTitle" />
 
@@ -125,69 +125,38 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="24dp"
-    app:layout_constraintBottom_toBottomOf="@id/jpTitle"
+    app:layout_constraintBottom_toBottomOf="@id/dataTitle"
     app:layout_constraintStart_toEndOf="@id/titlesBarrier"
-    app:layout_constraintTop_toTopOf="@id/jpTitle"
+    app:layout_constraintTop_toTopOf="@id/dataTitle"
     tools:text="yyyy-mm-dd" />
 
-  <TextView
-    android:id="@+id/euTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="48dp"
-    android:layout_marginTop="12dp"
-    android:text="Europe Release"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/jpTitle" />
 
   <TextView
     android:id="@+id/euData"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="24dp"
-    app:layout_constraintBottom_toBottomOf="@id/euTitle"
     app:layout_constraintStart_toEndOf="@id/titlesBarrier"
-    app:layout_constraintTop_toTopOf="@id/euTitle"
+    app:layout_constraintTop_toBottomOf="@id/jpData"
     tools:text="yyyy-mm-dd" />
-
-  <TextView
-    android:id="@+id/naTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="48dp"
-    android:layout_marginTop="12dp"
-    android:text="North America Release"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/euTitle" />
 
   <TextView
     android:id="@+id/naData"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="24dp"
-    app:layout_constraintBottom_toBottomOf="@id/naTitle"
     app:layout_constraintStart_toEndOf="@id/titlesBarrier"
-    app:layout_constraintTop_toTopOf="@id/naTitle"
+    app:layout_constraintTop_toBottomOf="@id/euData"
     tools:text="yyyy-mm-dd" />
 
-  <TextView
-    android:id="@+id/auTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="48dp"
-    android:layout_marginTop="12dp"
-    android:text="Australia Release"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/naTitle" />
 
   <TextView
     android:id="@+id/auData"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="24dp"
-    app:layout_constraintBottom_toBottomOf="@id/auTitle"
     app:layout_constraintStart_toEndOf="@id/titlesBarrier"
-    app:layout_constraintTop_toTopOf="@id/auTitle"
+    app:layout_constraintTop_toBottomOf="@+id/naData"
     tools:text="yyyy-mm-dd" />
 
   <androidx.constraintlayout.widget.Barrier
@@ -195,7 +164,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:barrierDirection="end"
-    app:constraint_referenced_ids="amiiboSeriesTitle, gameSeriesTitle, jpTitle, euTitle, naTitle, auTitle" />
+    app:constraint_referenced_ids="amiiboSeriesTitle, gameSeriesTitle, dataTitle" />
 
 
   <Space
@@ -205,4 +174,5 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/auData" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

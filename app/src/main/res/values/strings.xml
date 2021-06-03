@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AmiiLibo</string>
+
+
+    <string name="jp_data">🇯🇵 %1$s</string>
+    <string name="eu_data">🇪🇺 %1$s</string>
+    <string name="na_data">🇺🇸 %1$s</string>
+    <string name="au_data">🇦🇺 %1$s</string>
 </resources>

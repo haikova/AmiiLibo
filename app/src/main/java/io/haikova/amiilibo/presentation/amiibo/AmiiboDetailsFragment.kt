@@ -91,10 +91,10 @@ class AmiiboDetailsFragment : Fragment() {
         amiiboSeriesData.text = amiibo.amiiboSeries
         characterData.text = amiibo.character
         gameSeriesData.text = amiibo.gameSeries
-        jpData.text = amiibo.releaseCountryMap["jp"] ?: "?"
-        euData.text = amiibo.releaseCountryMap["eu"] ?: "?"
-        naData.text = amiibo.releaseCountryMap["na"] ?: "?"
-        auData.text = amiibo.releaseCountryMap["au"] ?: "?"
+        jpData.text = getString(R.string.jp_data, amiibo.releaseCountryMap["jp"] ?: "?")
+        euData.text = getString(R.string.eu_data, amiibo.releaseCountryMap["eu"] ?: "?")
+        naData.text = getString(R.string.na_data, amiibo.releaseCountryMap["na"] ?: "?")
+        auData.text = getString(R.string.au_data, amiibo.releaseCountryMap["au"] ?: "?")
       }
     }
 

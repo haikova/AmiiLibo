@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.children
 import androidx.fragment.app.*
 import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
@@ -97,8 +98,14 @@ class MainFragment : Fragment() {
 
     viewModel.isProgressShow.observe(viewLifecycleOwner) { show ->
       when (show) {
-        true -> binding.progressBar.visibility = View.VISIBLE
-        false -> binding.progressBar.visibility = View.INVISIBLE
+        true -> {
+          binding.progressBar.visibility = View.VISIBLE
+          binding.chipGroup.children.forEach { it.isEnabled = false }
+        }
+        false -> {
+          binding.progressBar.visibility = View.INVISIBLE
+          binding.chipGroup.children.forEach { it.isEnabled = true }
+        }
       }
     }
     viewModel.amiiboOptions.observe(viewLifecycleOwner) {

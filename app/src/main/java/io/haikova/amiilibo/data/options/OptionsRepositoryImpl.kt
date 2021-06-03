@@ -5,6 +5,8 @@ import io.haikova.amiilibo.data.api.AmiiboOptionsResponseDto
 import io.haikova.amiilibo.data.db.AmiiboDao
 import io.haikova.amiilibo.data.db.AmiiboOptionsEntityType
 import io.haikova.amiilibo.data.db.OptionEntity
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
 class OptionsRepositoryImpl @Inject constructor(
@@ -17,51 +19,37 @@ class OptionsRepositoryImpl @Inject constructor(
   }
 
   override suspend fun getAmiiboSeriesOptions(): List<String> {
-    return api.getAllAmiiboSeries().model().distinct()
+    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.AMIIBO_SERIES.toString()).map { it.name }
   }
 
   override suspend fun getGameSeriesOptions(): List<String> {
-    return api.getAllAmiiboGameSeries().model().distinct()
+    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.GAME_SERIES.toString()).map { it.name }
   }
 
   override suspend fun getAmiiboTypeOptions(): List<String> {
-    return api.getAllAmiiboType().model().distinct()
+    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.AMIIBO_TYPE.toString()).map { it.name }
   }
 
   override suspend fun getCharacterOptions(): List<String> {
-    return api.getAllAmiiboCharacters().model().distinct()
+    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.CHARACTER.toString()).map { it.name }
   }
 
   override suspend fun updateOptionsDb() {
-    val series = getAmiiboSeriesOptions()
-    val games = getGameSeriesOptions()
-    val types = getAmiiboTypeOptions()
-    val characters = getCharacterOptions()
-    amiiboDao.clearOptions()
-    amiiboDao.insertOptions(
-      series.map { OptionEntity(it, AmiiboOptionsEntityType.GAME_SERIES.toString()) } +
-          games.map { OptionEntity(it, AmiiboOptionsEntityType.AMIIBO_SERIES.toString()) } +
-          types.map { OptionEntity(it, AmiiboOptionsEntityType.AMIIBO_TYPE.toString()) } +
-          characters.map { OptionEntity(it, AmiiboOptionsEntityType.CHARACTER.toString()) })
+    coroutineScope {
+      val series = async { api.getAllAmiiboSeries().model().distinct() }
+      val games = async { api.getAllAmiiboGameSeries().model().distinct() }
+      val types = async { api.getAllAmiiboType().model().distinct() }
+      val characters = async { api.getAllAmiiboCharacters().model().distinct() }
+      amiiboDao.clearOptions()
+      amiiboDao.insertOptions(
+        series.await().map { OptionEntity(it, AmiiboOptionsEntityType.AMIIBO_SERIES.toString()) } +
+            games.await().map { OptionEntity(it, AmiiboOptionsEntityType.GAME_SERIES.toString()) } +
+            types.await().map { OptionEntity(it, AmiiboOptionsEntityType.AMIIBO_TYPE.toString()) } +
+            characters.await().map { OptionEntity(it, AmiiboOptionsEntityType.CHARACTER.toString()) })
+    }
   }
 
   private fun AmiiboOptionsResponseDto.model(): List<String> {
     return amiiboOptions.map { it.name }
   }
-
-/*  override suspend fun getAllAmiiboCharacters(): List<String> {
-    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.CHARACTER.toString()).map { it.name }
-  }
-
-  override suspend fun getAllAmiiboSeries(): List<String> {
-    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.AMIIBO_SERIES.toString()).map { it.name }
-  }
-
-  override suspend fun getAllAmiiboGameSeries(): List<String> {
-    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.GAME_SERIES.toString()).map { it.name }
-  }
-
-  override suspend fun getAllAmiiboType(): List<String> {
-    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.AMIIBO_TYPE.toString()).map { it.name }
-  }*/
 }
