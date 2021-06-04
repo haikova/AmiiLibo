@@ -58,7 +58,11 @@ class MainFragment : Fragment() {
       chipCharacter.setOnClickListener { openOptionsDialog(AmiiboOptionsType.CHARACTER) }
 
       chipList.setOnCloseIconClickListener {
-
+        chipSeries.apply {
+          text = "All"
+          isCloseIconVisible = false
+          viewModel.updateAmiiboOptions(AmiiboOptionsType.LIST, "All")
+        }
       }
       chipSeries.setOnCloseIconClickListener {
         chipSeries.apply {

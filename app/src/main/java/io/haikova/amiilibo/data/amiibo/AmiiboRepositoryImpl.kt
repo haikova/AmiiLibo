@@ -4,8 +4,7 @@ import io.haikova.amiilibo.data.*
 import io.haikova.amiilibo.data.api.AmiiboApi
 import io.haikova.amiilibo.data.api.AmiiboDto
 import io.haikova.amiilibo.data.api.AmiiboResponseDto
-import io.haikova.amiilibo.data.db.AmiiboDao
-import io.haikova.amiilibo.data.db.AmiiboEntity
+import io.haikova.amiilibo.data.db.*
 import io.haikova.amiilibo.presentation.main.AmiiboOptionsData
 import io.haikova.amiilibo.presentation.main.AmiiboPreferences
 import java.util.*
@@ -30,6 +29,8 @@ class AmiiboRepositoryImpl @Inject constructor(
     amiiboOptionsData: AmiiboOptionsData
   ): List<AmiiboModel> {
     return amiiboDao.getAmiiboByOptions(
+      if (AmiiboListType.OWNED.name.equals(amiiboOptionsData.listType, true)) true else null,
+      if (AmiiboListType.WHISHLIST.name.equals(amiiboOptionsData.listType, true)) true else null,
       amiiboOptionsData.amiiboSeries,
       amiiboOptionsData.gameSeries,
       amiiboOptionsData.amiiboType,
@@ -53,6 +54,13 @@ class AmiiboRepositoryImpl @Inject constructor(
     amiiboDao.insertAllAmiibo(api.getAllAmiibo().model().map { it.entity() })
   }
 
+  override suspend fun updateFavouriteStateAmiibo(id: String, state: Boolean) {
+    amiiboDao.updateFavouriteStateAmiibo(FavouriteUpdate(id, state))
+  }
+
+  override suspend fun updateOwnedStateAmiibo(id: String, state: Boolean) {
+    amiiboDao.updateOwnedStateAmiibo(OwnedUpdate(id, state))
+  }
 
   private fun AmiiboResponseDto.model(): List<AmiiboModel> {
     return amiibo.map { it.model() }
@@ -76,7 +84,7 @@ class AmiiboRepositoryImpl @Inject constructor(
         )
       } ?: emptyMap(),
       tail = this.tail,
-      type = AmiiboType.valueOf(this.type.toUpperCase(Locale.getDefault()))
+      type = AmiiboType.valueOf(this.type.toUpperCase(Locale.getDefault())),
     )
   }
 
@@ -96,7 +104,9 @@ class AmiiboRepositoryImpl @Inject constructor(
         "na" to this.naRelease
       ),
       tail = this.tail,
-      type = AmiiboType.valueOf(this.type.toUpperCase(Locale.getDefault()))
+      type = AmiiboType.valueOf(this.type.toUpperCase(Locale.getDefault())),
+      isOwned = isOwned,
+      isFavourite = isFavourite
     )
   }
 
@@ -114,7 +124,9 @@ class AmiiboRepositoryImpl @Inject constructor(
       jpRelease = releaseCountryMap["jp"] ?: "NaN",
       naRelease = releaseCountryMap["na"] ?: "NaN",
       tail = this.tail,
-      type = this.type.toString()
+      type = this.type.toString(),
+      isOwned = isOwned,
+      isFavourite = isFavourite
     )
   }
 }

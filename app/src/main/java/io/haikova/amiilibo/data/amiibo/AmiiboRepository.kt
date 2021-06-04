@@ -10,4 +10,6 @@ interface AmiiboRepository {
   suspend fun isDataUpToDate(): Boolean
   suspend fun getAllAmiiboFromDB(): List<AmiiboModel>
   suspend fun updateAmiiboDb()
+  suspend fun updateFavouriteStateAmiibo(id: String, state: Boolean)
+  suspend fun updateOwnedStateAmiibo(id: String, state: Boolean)
 }

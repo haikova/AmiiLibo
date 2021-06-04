@@ -3,6 +3,7 @@ package io.haikova.amiilibo.data.options
 import io.haikova.amiilibo.data.api.AmiiboApi
 import io.haikova.amiilibo.data.api.AmiiboOptionsResponseDto
 import io.haikova.amiilibo.data.db.AmiiboDao
+import io.haikova.amiilibo.data.db.AmiiboListType
 import io.haikova.amiilibo.data.db.AmiiboOptionsEntityType
 import io.haikova.amiilibo.data.db.OptionEntity
 import kotlinx.coroutines.async
@@ -15,19 +16,26 @@ class OptionsRepositoryImpl @Inject constructor(
 ) : OptionsRepository {
 
   override fun getListOptions(): List<String> {
-    return listOf("All", "My", "Whishlist")
+    return listOf(
+      AmiiboListType.ALL.title,
+      AmiiboListType.OWNED.title,
+      AmiiboListType.WHISHLIST.title
+    )
   }
 
   override suspend fun getAmiiboSeriesOptions(): List<String> {
-    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.AMIIBO_SERIES.toString()).map { it.name }
+    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.AMIIBO_SERIES.toString())
+      .map { it.name }
   }
 
   override suspend fun getGameSeriesOptions(): List<String> {
-    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.GAME_SERIES.toString()).map { it.name }
+    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.GAME_SERIES.toString())
+      .map { it.name }
   }
 
   override suspend fun getAmiiboTypeOptions(): List<String> {
-    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.AMIIBO_TYPE.toString()).map { it.name }
+    return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.AMIIBO_TYPE.toString())
+      .map { it.name }
   }
 
   override suspend fun getCharacterOptions(): List<String> {
@@ -45,7 +53,8 @@ class OptionsRepositoryImpl @Inject constructor(
         series.await().map { OptionEntity(it, AmiiboOptionsEntityType.AMIIBO_SERIES.toString()) } +
             games.await().map { OptionEntity(it, AmiiboOptionsEntityType.GAME_SERIES.toString()) } +
             types.await().map { OptionEntity(it, AmiiboOptionsEntityType.AMIIBO_TYPE.toString()) } +
-            characters.await().map { OptionEntity(it, AmiiboOptionsEntityType.CHARACTER.toString()) })
+            characters.await()
+              .map { OptionEntity(it, AmiiboOptionsEntityType.CHARACTER.toString()) })
     }
   }
 

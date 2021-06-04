@@ -78,6 +78,10 @@ class MainViewModel @Inject constructor(
   fun updateAmiiboOptions(type: AmiiboOptionsType, value: String?) {
     when (type) {
       AmiiboOptionsType.LIST -> {
+        _amiiboOptions.postValue(
+        _amiiboOptions.value?.copy(listType = value)
+          ?: AmiiboOptionsData(listType = value)
+      )
       }
       AmiiboOptionsType.AMIIBO_SERIES -> {
         _amiiboOptions.postValue(

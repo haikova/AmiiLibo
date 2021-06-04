@@ -1,5 +1,7 @@
 package io.haikova.amiilibo.data
 
+import androidx.room.ColumnInfo
+
 data class AmiiboModel(
   val id: String,
   val amiiboSeries : String,
@@ -10,7 +12,9 @@ data class AmiiboModel(
   val name : String,
   val releaseCountryMap: Map<String, String?>,
   val tail : String,
-  val type : AmiiboType
+  val type : AmiiboType,
+  val isOwned: Boolean = false,
+  val isFavourite: Boolean = false
 )
 
 enum class AmiiboType {

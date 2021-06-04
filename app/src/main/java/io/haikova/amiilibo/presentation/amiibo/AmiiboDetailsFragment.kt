@@ -95,6 +95,14 @@ class AmiiboDetailsFragment : Fragment() {
         euData.text = getString(R.string.eu_data, amiibo.releaseCountryMap["eu"] ?: "?")
         naData.text = getString(R.string.na_data, amiibo.releaseCountryMap["na"] ?: "?")
         auData.text = getString(R.string.au_data, amiibo.releaseCountryMap["au"] ?: "?")
+        ownButton.isChecked = amiibo.isOwned
+        favButton.isChecked = amiibo.isFavourite
+        ownButton.setOnCheckedChangeListener { checkBox, isChecked ->
+          viewModel.changeOwnedState(isChecked)
+        }
+        favButton.setOnCheckedChangeListener { checkBox, isChecked ->
+          viewModel.changeFavouriteState(isChecked)
+        }
       }
     }
 

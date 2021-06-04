@@ -1,178 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:background="@android:color/holo_purple">
 
-  <View
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_marginStart="24dp"
-    android:layout_marginEnd="24dp"
-    android:background="@drawable/rounded_background"
-    app:layout_constraintBottom_toBottomOf="@id/descriptionBottomSpace"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@id/descriptionTopSpace" />
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-  <ImageView
-    android:id="@+id/amiiboImage"
-    android:layout_width="wrap_content"
-    android:layout_height="300dp"
-    android:layout_marginTop="24dp"
-    android:src="@drawable/amiibo_thumb"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:background="@android:color/holo_purple">
 
+      <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintBottom_toBottomOf="@id/descriptionBottomSpace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/descriptionTopSpace" />
 
-  <Space
-    android:id="@+id/descriptionTopSpace"
-    android:layout_width="0dp"
-    android:layout_height="96dp"
-    app:layout_constraintBottom_toTopOf="@id/nameData"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent" />
-
-  <TextView
-    android:id="@+id/nameData"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="48dp"
-    android:layout_marginTop="8dp"
-    android:text="Princess Zelda"
-    android:textSize="32dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/amiiboImage"
-    tools:text="Princess Zelda" />
-
-  <TextView
-    android:id="@+id/amiiboSeriesTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="48dp"
-    android:text="Amiibo Series"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/nameData" />
-
-  <TextView
-    android:id="@+id/amiiboSeriesData"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    android:text=""
-    app:layout_constraintBottom_toBottomOf="@id/amiiboSeriesTitle"
-    app:layout_constraintStart_toEndOf="@id/titlesBarrier"
-    app:layout_constraintTop_toTopOf="@id/amiiboSeriesTitle"
-    tools:text="Legend of Zelda" />
-
-  <TextView
-    android:id="@+id/characterTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="48dp"
-    android:layout_marginTop="12dp"
-    android:text="Character"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/amiiboSeriesTitle" />
-
-  <TextView
-    android:id="@+id/characterData"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    android:text=""
-    app:layout_constraintBottom_toBottomOf="@id/characterTitle"
-    app:layout_constraintStart_toEndOf="@id/titlesBarrier"
-    app:layout_constraintTop_toTopOf="@id/characterTitle"
-    tools:text="Zelda" />
-
-  <TextView
-    android:id="@+id/gameSeriesTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="48dp"
-    android:layout_marginTop="12dp"
-    android:text="Game Series"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/characterTitle" />
-
-  <TextView
-    android:id="@+id/gameSeriesData"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    android:text=""
-    app:layout_constraintBottom_toBottomOf="@id/gameSeriesTitle"
-    app:layout_constraintStart_toEndOf="@id/titlesBarrier"
-    app:layout_constraintTop_toTopOf="@id/gameSeriesTitle"
-    tools:text="Legend of Zelda" />
-
-  <TextView
-    android:id="@+id/dataTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="48dp"
-    android:layout_marginTop="12dp"
-    android:text="Realesed"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/gameSeriesTitle" />
-
-  <TextView
-    android:id="@+id/jpData"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    app:layout_constraintBottom_toBottomOf="@id/dataTitle"
-    app:layout_constraintStart_toEndOf="@id/titlesBarrier"
-    app:layout_constraintTop_toTopOf="@id/dataTitle"
-    tools:text="yyyy-mm-dd" />
+      <ImageView
+        android:id="@+id/amiiboImage"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/amiibo_thumb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-  <TextView
-    android:id="@+id/euData"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    app:layout_constraintStart_toEndOf="@id/titlesBarrier"
-    app:layout_constraintTop_toBottomOf="@id/jpData"
-    tools:text="yyyy-mm-dd" />
+      <Space
+        android:id="@+id/descriptionTopSpace"
+        android:layout_width="0dp"
+        android:layout_height="96dp"
+        app:layout_constraintBottom_toTopOf="@id/nameData"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-  <TextView
-    android:id="@+id/naData"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    app:layout_constraintStart_toEndOf="@id/titlesBarrier"
-    app:layout_constraintTop_toBottomOf="@id/euData"
-    tools:text="yyyy-mm-dd" />
+      <TextView
+        android:id="@+id/nameData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:text="Princess Zelda"
+        android:textSize="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amiiboImage"
+        tools:text="Princess Zelda" />
+
+      <TextView
+        android:id="@+id/amiiboSeriesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:text="Amiibo Series"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameData" />
+
+      <TextView
+        android:id="@+id/amiiboSeriesData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@id/amiiboSeriesTitle"
+        app:layout_constraintStart_toEndOf="@id/titlesBarrier"
+        app:layout_constraintTop_toTopOf="@id/amiiboSeriesTitle"
+        tools:text="Legend of Zelda" />
+
+      <TextView
+        android:id="@+id/characterTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="12dp"
+        android:text="Character"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amiiboSeriesTitle" />
+
+      <TextView
+        android:id="@+id/characterData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@id/characterTitle"
+        app:layout_constraintStart_toEndOf="@id/titlesBarrier"
+        app:layout_constraintTop_toTopOf="@id/characterTitle"
+        tools:text="Zelda" />
+
+      <TextView
+        android:id="@+id/gameSeriesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="12dp"
+        android:text="Game Series"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/characterTitle" />
+
+      <TextView
+        android:id="@+id/gameSeriesData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@id/gameSeriesTitle"
+        app:layout_constraintStart_toEndOf="@id/titlesBarrier"
+        app:layout_constraintTop_toTopOf="@id/gameSeriesTitle"
+        tools:text="Legend of Zelda" />
+
+      <TextView
+        android:id="@+id/dataTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="12dp"
+        android:text="Realesed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gameSeriesTitle" />
+
+      <TextView
+        android:id="@+id/jpData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@id/dataTitle"
+        app:layout_constraintStart_toEndOf="@id/titlesBarrier"
+        app:layout_constraintTop_toTopOf="@id/dataTitle"
+        tools:text="yyyy-mm-dd" />
 
 
-  <TextView
-    android:id="@+id/auData"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    app:layout_constraintStart_toEndOf="@id/titlesBarrier"
-    app:layout_constraintTop_toBottomOf="@+id/naData"
-    tools:text="yyyy-mm-dd" />
+      <TextView
+        android:id="@+id/euData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toEndOf="@id/titlesBarrier"
+        app:layout_constraintTop_toBottomOf="@id/jpData"
+        tools:text="yyyy-mm-dd" />
 
-  <androidx.constraintlayout.widget.Barrier
-    android:id="@+id/titlesBarrier"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:barrierDirection="end"
-    app:constraint_referenced_ids="amiiboSeriesTitle, gameSeriesTitle, dataTitle" />
+      <TextView
+        android:id="@+id/naData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toEndOf="@id/titlesBarrier"
+        app:layout_constraintTop_toBottomOf="@id/euData"
+        tools:text="yyyy-mm-dd" />
 
 
-  <Space
-    android:id="@+id/descriptionBottomSpace"
-    android:layout_width="0dp"
-    android:layout_height="24dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/auData" />
+      <TextView
+        android:id="@+id/auData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toEndOf="@id/titlesBarrier"
+        app:layout_constraintTop_toBottomOf="@+id/naData"
+        tools:text="yyyy-mm-dd" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+      <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/titlesBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="amiiboSeriesTitle, gameSeriesTitle, dataTitle" />
+
+
+      <Space
+        android:id="@+id/descriptionBottomSpace"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/auData" />
+
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/ownButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#000000"
+        android:button="@drawable/owned_selector"
+        app:buttonTint="@android:color/white"
+        app:layout_constraintEnd_toStartOf="@id/favButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descriptionBottomSpace" />
+
+      <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/favButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:button="@drawable/favourite_selector"
+        app:buttonTint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ownButton"
+        app:layout_constraintTop_toTopOf="@id/ownButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </ScrollView>
+</FrameLayout>

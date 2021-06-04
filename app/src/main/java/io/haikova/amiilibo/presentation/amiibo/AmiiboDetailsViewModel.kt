@@ -24,4 +24,20 @@ class AmiiboDetailsViewModel @Inject constructor(
     }
   }
 
+  fun changeOwnedState(state: Boolean) {
+    _amiiboData.value?.let {
+      viewModelScope.launch(Dispatchers.IO) {
+        amiiboRepository.updateOwnedStateAmiibo(it.id, state)
+      }
+    }
+  }
+
+  fun changeFavouriteState(state: Boolean) {
+    _amiiboData.value?.let {
+      viewModelScope.launch(Dispatchers.IO) {
+        amiiboRepository.updateFavouriteStateAmiibo(it.id, state)
+      }
+    }
+  }
+
 }
