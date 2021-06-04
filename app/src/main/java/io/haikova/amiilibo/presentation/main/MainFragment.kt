@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
+import io.haikova.amiilibo.data.db.AmiiboListType
 import io.haikova.amiilibo.databinding.FragmentMainBinding
 import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsFragment
 import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsFragment.Companion.ITEM_ID
@@ -58,7 +59,7 @@ class MainFragment : Fragment() {
       chipCharacter.setOnClickListener { openOptionsDialog(AmiiboOptionsType.CHARACTER) }
 
       chipList.setOnCloseIconClickListener {
-        chipSeries.apply {
+        chipList.apply {
           text = "All"
           isCloseIconVisible = false
           viewModel.updateAmiiboOptions(AmiiboOptionsType.LIST, "All")
@@ -131,7 +132,7 @@ class MainFragment : Fragment() {
         when (type) {
           AmiiboOptionsType.LIST -> binding.chipList.apply {
             text = title
-            isCloseIconVisible = true
+            if (title != AmiiboListType.ALL.title) isCloseIconVisible = true
           }
           AmiiboOptionsType.AMIIBO_SERIES -> binding.chipSeries.apply {
             text = title
