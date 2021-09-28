@@ -14,13 +14,17 @@ object MainAdapterDelegates {
     { layoutInflater, root -> ItemHomeAmiiboBinding.inflate(layoutInflater, root, false) }
   ) {
 
-    binding.imageViewAmiibo.setOnClickListener {
+    binding.root.setOnClickListener {
       itemClickedListener(item)
     }
     bind {
-      glide
-        .load(item.image)
-        .into(binding.imageViewAmiibo)
+      with(binding) {
+        glide
+          .load(item.image)
+          .into(imageViewAmiibo)
+        nameText.text = item.name
+        gameText.text = item.game
+      }
     }
     onViewRecycled {
       glide.clear(binding.imageViewAmiibo)

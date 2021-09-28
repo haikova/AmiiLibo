@@ -116,7 +116,9 @@ class MainViewModel @Inject constructor(
       id = this.id,
       head = this.head,
       tail = this.tail,
-      image = this.image
+      image = this.image,
+      name = this.name,
+      game = this.gameSeries
     )
   }
 
