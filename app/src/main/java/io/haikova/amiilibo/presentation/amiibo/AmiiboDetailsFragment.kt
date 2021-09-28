@@ -1,10 +1,8 @@
 package io.haikova.amiilibo.presentation.amiibo
 
-import android.animation.ArgbEvaluator
-import android.animation.ValueAnimator
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,12 +14,12 @@ import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.FragmentAmiiboDetailsBinding
-import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class AmiiboDetailsFragment : Fragment() {
@@ -43,8 +41,9 @@ class AmiiboDetailsFragment : Fragment() {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    viewModel.loadData(arguments?.getString(ITEM_ID) ?: "0")
-
+    binding.toolbar.setOnClickListener {
+      activity?.onBackPressed()
+    }
     viewModel.amiiboData.observe(viewLifecycleOwner) { amiibo ->
       with(binding) {
         glide
@@ -69,19 +68,16 @@ class AmiiboDetailsFragment : Fragment() {
               resource?.toBitmap()?.let { bitmap ->
                 Palette.Builder(bitmap).generate {
                   it?.let { palette ->
-                    val colorTo = palette.getLightVibrantColor(Color.WHITE)
-                    val colorFrom = Color.WHITE
-                    val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
-                    colorAnimation.apply {
-                      duration = 250
-                      addUpdateListener { animator ->
-                        binding.root.setBackgroundColor(animator.animatedValue as Int)
-                      }
-                      start()
+                    val colorFrom = palette.getVibrantColor(Color.WHITE)
+                    val colorTo = palette.getMutedColor(Color.WHITE)
+
+                    gradientView.background = GradientDrawable(
+                      GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(colorFrom, colorTo)
+                    )
+                    gradientView.animate().alpha(1f).start()
                     }
                   }
                 }
-              }
               return false
             }
           })
@@ -95,13 +91,13 @@ class AmiiboDetailsFragment : Fragment() {
         euData.text = getString(R.string.eu_data, amiibo.releaseCountryMap["eu"] ?: "?")
         naData.text = getString(R.string.na_data, amiibo.releaseCountryMap["na"] ?: "?")
         auData.text = getString(R.string.au_data, amiibo.releaseCountryMap["au"] ?: "?")
-        ownButton.isChecked = amiibo.isOwned
-        favButton.isChecked = amiibo.isFavourite
-        ownButton.setOnCheckedChangeListener { checkBox, isChecked ->
-          viewModel.changeOwnedState(isChecked)
+        ownButton.text = if (amiibo.isOwned) "Remove from Collection" else "Add to Collection"
+        favButton.setImageResource(if (amiibo.isFavourite) R.drawable.ic_favourite_added else R.drawable.ic_favourite)
+        ownButton.setOnClickListener {
+          viewModel.changeOwnedState()
         }
-        favButton.setOnCheckedChangeListener { checkBox, isChecked ->
-          viewModel.changeFavouriteState(isChecked)
+        favButton.setOnClickListener {
+          viewModel.changeFavouriteState()
         }
       }
     }

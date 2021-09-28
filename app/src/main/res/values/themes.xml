@@ -1,18 +1,20 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!-- Base application theme. -->
   <style name="Theme.AmiiLibo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-    <!-- Primary brand color. -->
-    <item name="colorPrimary">@color/purple_500</item>
-    <item name="colorPrimaryVariant">@color/purple_700</item>
+    <item name="colorPrimary">@color/red_e1</item>
+    <item name="colorPrimaryVariant">@color/red_e1</item>
     <item name="colorOnPrimary">@color/white</item>
-    <!-- Secondary brand color. -->
-    <item name="colorSecondary">@color/teal_200</item>
-    <item name="colorSecondaryVariant">@color/teal_700</item>
+    <item name="colorSecondary">@color/gray_39</item>
+    <item name="colorSecondaryVariant">@color/gray_39</item>
     <item name="colorOnSecondary">@color/black</item>
-    <!-- Status bar color. -->
-    <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
+    <item name="android:windowLightStatusBar">true</item>
+    <item name="Primary">@color/red_e1</item>
+    <item name="Neutral300">@color/gray_d7</item>
+    <item name="Neutral500">@color/gray_96</item>
+    <item name="Neutral700">@color/gray_79</item>
+    <item name="Neutral900">@color/gray_5c</item>
     <item name="fontFamily">@font/poppins</item>
-    <!-- Customize your theme here. -->
   </style>
 
   <style name="DialogStyle" parent="Theme.MaterialComponents.DayNight.Dialog">
@@ -20,14 +22,82 @@
     <item name="android:windowMinWidthMinor">97%</item>
   </style>
 
-  <style name="qwqwe">
-    <item name="iconPadding">0dp</item>
-    <item name="android:insetTop">0dp</item>
-    <item name="android:insetBottom">0dp</item>
-    <item name="android:insetLeft">12dp</item>
-    <item name="android:paddingRight">12dp</item>
-    <item name="android:minWidth">48dp</item>
-    <item name="android:minHeight">48dp</item>
+  <style name="Heading1">
+    <item name="fontFamily">@font/poppins</item>
+    <item name="android:fontFamily">@font/poppins</item>
+    <item name="android:textSize">36sp</item>
+  </style>
+  <style name="Heading2">
+    <item name="fontFamily">@font/poppins</item>
+    <item name="android:fontFamily">@font/poppins</item>
+    <item name="android:textSize">24sp</item>
+  </style>
+  <style name="Caption1">
+    <item name="fontFamily">@font/poppins</item>
+    <item name="android:fontFamily">@font/poppins</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+  <style name="Caption2">
+    <item name="fontFamily">@font/poppins</item>
+    <item name="android:fontFamily">@font/poppins</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+  <style name="Caption3">
+    <item name="fontFamily">@font/poppins</item>
+    <item name="android:fontFamily">@font/poppins</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+  <style name="Caption4">
+    <item name="fontFamily">@font/poppins</item>
+    <item name="android:fontFamily">@font/poppins</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+  <style name="Caption5">
+    <item name="fontFamily">@font/poppins</item>
+    <item name="android:fontFamily">@font/poppins</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+  <style name="Body1">
+    <item name="fontFamily">@font/poppins</item>
+    <item name="android:fontFamily">@font/poppins</item>
+    <item name="android:textSize">20sp</item>
+  </style>
+  <style name="Body2">
+    <item name="fontFamily">@font/poppins</item>
+    <item name="android:fontFamily">@font/poppins</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+  <style name="Body3">
+    <item name="fontFamily">@font/poppins</item>
+    <item name="android:fontFamily">@font/poppins</item>
+    <item name="android:textSize">10sp</item>
   </style>
 
+  <style name="TextAppearanceButton">
+    <item name="fontFamily">@font/poppins</item>
+    <item name="android:fontFamily">@font/poppins</item>
+    <item name="android:textSize">16sp</item>
+    <item name="textAllCaps">false</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+  <style name="ShapeAppearanceSmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">30dp</item>
+  </style>
+  <style name="ThemeOverlayButton" parent="">
+    <item name="colorPrimary">?Primary</item>
+    <item name="colorOnPrimary">@color/white</item>
+  </style>
+  <style name="PrimaryButton" parent="Widget.MaterialComponents.Button">
+    <item name="android:textAppearance">@style/TextAppearanceButton</item>
+    <item name="shapeAppearance">@style/ShapeAppearanceSmallComponent</item>
+    <item name="materialThemeOverlay">@style/ThemeOverlayButton</item>
+    <item name="elevation">4dp</item>
+    <item name="android:insetTop">0dp</item>
+    <item name="android:insetBottom">0dp</item>
+  </style>
+  <style name="FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+    <item name="backgroundTint">?Primary</item>
+    <item name="elevation">4dp</item>
+  </style>
 </resources>

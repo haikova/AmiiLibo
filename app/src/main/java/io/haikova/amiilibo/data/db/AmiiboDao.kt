@@ -1,5 +1,6 @@
 package io.haikova.amiilibo.data.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -39,7 +40,7 @@ interface AmiiboDao {
     """SELECT * FROM amiibos
     WHERE id = :idItem"""
   )
-  fun getAmiiboDetails(idItem: String): AmiiboEntity
+  fun getAmiiboDetails(idItem: String): LiveData<AmiiboEntity>
 
   @Query("DELETE FROM amiibos")
   fun clearAmiibos()

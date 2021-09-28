@@ -10,32 +10,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AmiiboDetailsViewModel @Inject constructor(
-  private val amiiboRepository: AmiiboRepositoryImpl
+  private val amiiboRepository: AmiiboRepositoryImpl,
+  amiiboId: String
 ) : ViewModel() {
 
-  private val _amiiboData: MutableLiveData<AmiiboModel> by lazy {
-    MutableLiveData<AmiiboModel>()
-  }
+  private val _amiiboData: LiveData<AmiiboModel> = amiiboRepository.getAmiiboDetails(amiiboId)
   val amiiboData: LiveData<AmiiboModel> = _amiiboData
 
-  fun loadData(itemId: String) {
-    viewModelScope.launch(Dispatchers.IO) {
-      _amiiboData.postValue(amiiboRepository.getAmiiboDetails(itemId))
-    }
-  }
-
-  fun changeOwnedState(state: Boolean) {
-    _amiiboData.value?.let {
+  fun changeOwnedState() {
+    amiiboData.value?.let {
       viewModelScope.launch(Dispatchers.IO) {
-        amiiboRepository.updateOwnedStateAmiibo(it.id, state)
+        amiiboRepository.updateOwnedStateAmiibo(it.id, !it.isOwned)
       }
     }
   }
 
-  fun changeFavouriteState(state: Boolean) {
-    _amiiboData.value?.let {
+  fun changeFavouriteState() {
+    amiiboData.value?.let {
       viewModelScope.launch(Dispatchers.IO) {
-        amiiboRepository.updateFavouriteStateAmiibo(it.id, state)
+        amiiboRepository.updateFavouriteStateAmiibo(it.id, !it.isFavourite)
       }
     }
   }

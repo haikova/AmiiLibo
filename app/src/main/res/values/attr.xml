@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <attr name="Primary" format="color"/>
+  <attr name="Secondary" format="color"/>
+
+  <attr name="Neutral300" format="color"/>
+  <attr name="Neutral500" format="color"/>
+  <attr name="Neutral700" format="color"/>
+  <attr name="Neutral900" format="color"/>
+</resources>

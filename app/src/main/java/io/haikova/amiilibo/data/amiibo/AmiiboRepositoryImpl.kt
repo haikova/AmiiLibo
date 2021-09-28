@@ -1,5 +1,7 @@
 package io.haikova.amiilibo.data.amiibo
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import io.haikova.amiilibo.data.*
 import io.haikova.amiilibo.data.api.AmiiboApi
 import io.haikova.amiilibo.data.api.AmiiboDto
@@ -42,11 +44,11 @@ class AmiiboRepositoryImpl @Inject constructor(
     return api.getDataLastUpdate().lastUpdated == amiiboPreferences.lastDataUpdate
   }
 
-  override suspend fun getAmiiboDetails(id: String): AmiiboModel {
-    return amiiboDao.getAmiiboDetails(id).model()
+  override fun getAmiiboDetails(id: String): LiveData<AmiiboModel> {
+    return amiiboDao.getAmiiboDetails(id).map { entity -> entity.model() }
   }
 
-  override suspend fun getAllAmiiboFromDB(): List<AmiiboModel> {
+  override fun getAllAmiiboFromDB(): List<AmiiboModel> {
     return amiiboDao.getAllAmiibo().map { it.model() }
   }
 
