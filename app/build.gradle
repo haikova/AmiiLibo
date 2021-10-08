@@ -3,8 +3,9 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
-
+apply plugin: "androidx.navigation.safeargs.kotlin"
 android {
     compileSdkVersion 31
 
@@ -79,4 +80,8 @@ dependencies {
     // Paging
     implementation 'androidx.paging:paging-runtime-ktx:3.0.1'
     implementation 'androidx.paging:paging-compose:1.0.0-alpha12'
+
+    // Navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0-alpha09'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.0-alpha09'
 }

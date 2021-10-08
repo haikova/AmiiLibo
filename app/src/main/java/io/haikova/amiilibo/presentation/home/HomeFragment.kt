@@ -1,50 +1,49 @@
-package io.haikova.amiilibo.presentation.main
+package io.haikova.amiilibo.presentation.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.children
 import androidx.fragment.app.*
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.data.db.AmiiboListType
-import io.haikova.amiilibo.databinding.FragmentMainBinding
-import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsFragment
-import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsFragment.Companion.ITEM_ID
-import io.haikova.amiilibo.presentation.main.adapter.MainAdapterDelegates
+import io.haikova.amiilibo.databinding.FragmentHomeBinding
+import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsActivity
+import io.haikova.amiilibo.presentation.home.adapter.MainAdapterDelegates
 import io.haikova.amiilibo.presentation.options.AmiiboOptionsType
 import io.haikova.amiilibo.presentation.options.OptionsDialogFragment
 import io.haikova.amiilibo.presentation.options.OptionsDialogFragment.Companion.OPTIONS_TYPE
 
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class HomeFragment : Fragment() {
 
-  private var _binding: FragmentMainBinding? = null
+  private var _binding: FragmentHomeBinding? = null
   private val binding get() = _binding!!
 
   private val glide by lazy { Glide.with(this) }
   private val amiiboAdapter by lazy {
     ListDelegationAdapter(
       MainAdapterDelegates.amiiboDelegate(glide) {
-        Log.d("meow", "qqq")
         openDetailsScreen(it.id)
       }
     )
   }
 
-  private val viewModel: MainViewModel by viewModels()
+  private val viewModel: HomeViewModel by viewModels()
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    _binding = FragmentMainBinding.inflate(inflater, container, false)
+    _binding = FragmentHomeBinding.inflate(inflater, container, false)
     return binding.root
   }
 
@@ -52,19 +51,11 @@ class MainFragment : Fragment() {
     with(binding) {
       recyclerViewAmiibo.adapter = amiiboAdapter
 
-      chipList.setOnClickListener { openOptionsDialog(AmiiboOptionsType.LIST) }
       chipSeries.setOnClickListener { openOptionsDialog(AmiiboOptionsType.AMIIBO_SERIES) }
       chipGameSeries.setOnClickListener { openOptionsDialog(AmiiboOptionsType.GAME_SERIES) }
       chipType.setOnClickListener { openOptionsDialog(AmiiboOptionsType.AMIIBO_TYPE) }
       chipCharacter.setOnClickListener { openOptionsDialog(AmiiboOptionsType.CHARACTER) }
 
-      chipList.setOnCloseIconClickListener {
-        chipList.apply {
-          text = "All"
-          isCloseIconVisible = false
-          viewModel.updateAmiiboOptions(AmiiboOptionsType.LIST, "All")
-        }
-      }
       chipSeries.setOnCloseIconClickListener {
         chipSeries.apply {
           text = "Series"
@@ -130,10 +121,6 @@ class MainFragment : Fragment() {
       }
       action = { type, title ->
         when (type) {
-          AmiiboOptionsType.LIST -> binding.chipList.apply {
-            text = title
-            if (title != AmiiboListType.ALL.title) isCloseIconVisible = true
-          }
           AmiiboOptionsType.AMIIBO_SERIES -> binding.chipSeries.apply {
             text = title
             isCloseIconVisible = true
@@ -154,20 +141,12 @@ class MainFragment : Fragment() {
         viewModel.updateAmiiboOptions(type, title)
       }
 
-      show(this@MainFragment.childFragmentManager, "tag")
+      show(this@HomeFragment.childFragmentManager, "tag")
     }
   }
 
   fun openDetailsScreen(itemId: String) {
-    requireActivity().supportFragmentManager.commit {
-      addToBackStack(null)
-      replace<AmiiboDetailsFragment>(
-        containerViewId = R.id.fragmentContainer,
-        tag = null,
-        args = Bundle().apply {
-          putString(ITEM_ID, itemId)
-        }
-      )
-    }
+    val bundle = bundleOf(AmiiboDetailsActivity.ITEM_ID to itemId)
+    findNavController().navigate(R.id.action_homeFragment_to_amiiboDetailsActivity, bundle)
   }
 }

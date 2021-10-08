@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+    android:id="@+id/homeFragment"
+    android:enabled="true"
+    android:icon="@drawable/ic_favourite"
+    android:title="Everything" />
+  <item
+    android:id="@+id/collectionFragment"
+    android:enabled="true"
+    android:icon="@drawable/ic_favourite_added"
+    android:title="Collection" />
+</menu>

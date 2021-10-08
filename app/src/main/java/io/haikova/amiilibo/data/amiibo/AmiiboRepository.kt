@@ -2,10 +2,10 @@ package io.haikova.amiilibo.data.amiibo
 
 import androidx.lifecycle.LiveData
 import io.haikova.amiilibo.data.AmiiboModel
-import io.haikova.amiilibo.presentation.main.AmiiboOptionsData
+import io.haikova.amiilibo.presentation.home.AmiiboOptionsData
 
 interface AmiiboRepository {
-  suspend fun getAllAmiibo(): List<AmiiboModel>
+  fun getAllAmiibo(): LiveData<List<AmiiboModel>>
   suspend fun getAmiiboByOptions(amiiboOptionsData: AmiiboOptionsData): List<AmiiboModel>
   fun getAmiiboDetails(id: String): LiveData<AmiiboModel>
   suspend fun isDataUpToDate(): Boolean

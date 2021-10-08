@@ -1,7 +1,6 @@
-package io.haikova.amiilibo.presentation.main
+package io.haikova.amiilibo.presentation.home
 
 data class AmiiboOptionsData(
-  val listType: String? = "All",
   val amiiboSeries: String? = null,
   val gameSeries: String? = null,
   val amiiboType: String? = null,

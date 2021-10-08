@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsFragment
+import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsActivity
 import java.lang.IllegalArgumentException
 
 @Module
@@ -19,7 +19,7 @@ abstract class AmiiboDetailsModule {
     fun provideAmiiboId(
       handle: SavedStateHandle
     ) : String {
-      return handle.get<String>(AmiiboDetailsFragment.ITEM_ID) ?: throw IllegalArgumentException("Illegal amiibo id")
+      return handle.get<String>(AmiiboDetailsActivity.ITEM_ID) ?: throw IllegalArgumentException("Illegal amiibo id ${handle.get<String>(AmiiboDetailsActivity.ITEM_ID)}")
     }
   }
 }

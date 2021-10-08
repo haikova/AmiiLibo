@@ -100,4 +100,10 @@
     <item name="backgroundTint">?Primary</item>
     <item name="elevation">4dp</item>
   </style>
+
+  <style name="TabLayout" parent="Widget.MaterialComponents.TabLayout">
+    <item name="tabTextAppearance">@style/Caption3</item>
+    <item name="tabTextColor">@color/black</item>
+    <item name="tabIndicatorHeight">4dp</item>
+  </style>
 </resources>

@@ -1,18 +1,18 @@
-package io.haikova.amiilibo.presentation.main
+package io.haikova.amiilibo.presentation.home
 
 import io.haikova.amiilibo.data.AmiiboModel
 import io.haikova.amiilibo.data.amiibo.AmiiboRepository
 import io.haikova.amiilibo.data.options.OptionsRepository
-import io.haikova.amiilibo.domain.MainInteractor
+import io.haikova.amiilibo.domain.HomeInteractor
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.consumeAsFlow
 import javax.inject.Inject
 
-class MainInteractorImpl @Inject constructor(
+class HomeInteractorImpl @Inject constructor(
   private val amiiboRepository: AmiiboRepository,
   private val optionsRepository: OptionsRepository
-) : MainInteractor {
+) : HomeInteractor {
 
   val amiiboData = Channel<List<AmiiboModel>>(Channel.CONFLATED)
   val progressData = Channel<Boolean>(Channel.CONFLATED)

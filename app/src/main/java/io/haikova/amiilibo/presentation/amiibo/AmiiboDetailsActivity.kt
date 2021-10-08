@@ -7,9 +7,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -18,33 +20,30 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
-import io.haikova.amiilibo.databinding.FragmentAmiiboDetailsBinding
+import io.haikova.amiilibo.databinding.ActivityAmiiboDetailsBinding
+import io.haikova.amiilibo.databinding.ActivityMainBinding
 
 
 @AndroidEntryPoint
-class AmiiboDetailsFragment : Fragment() {
+class AmiiboDetailsActivity : AppCompatActivity() {
 
-  private var _binding: FragmentAmiiboDetailsBinding? = null
+  private var _binding: ActivityAmiiboDetailsBinding? = null
   private val binding get() = _binding!!
 
   private val glide by lazy { Glide.with(this) }
 
   private val viewModel: AmiiboDetailsViewModel by viewModels()
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
-    _binding = FragmentAmiiboDetailsBinding.inflate(inflater, container, false)
-    return binding.root
-  }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    _binding = ActivityAmiiboDetailsBinding.inflate(layoutInflater)
+    val view = binding.root
+    setContentView(view)
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.toolbar.setOnClickListener {
-      activity?.onBackPressed()
+      onBackPressed()
     }
-    viewModel.amiiboData.observe(viewLifecycleOwner) { amiibo ->
+    viewModel.amiiboData.observe(this) { amiibo ->
       with(binding) {
         glide
           .load(amiibo.image)
@@ -75,9 +74,9 @@ class AmiiboDetailsFragment : Fragment() {
                       GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(colorFrom, colorTo)
                     )
                     gradientView.animate().alpha(1f).start()
-                    }
                   }
                 }
+              }
               return false
             }
           })
@@ -101,9 +100,8 @@ class AmiiboDetailsFragment : Fragment() {
         }
       }
     }
-
-
   }
+
 
   companion object {
     const val ITEM_ID = "item_amiibo_id"

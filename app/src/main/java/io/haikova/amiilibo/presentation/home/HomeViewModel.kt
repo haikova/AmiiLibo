@@ -1,16 +1,13 @@
-package io.haikova.amiilibo.presentation.main
+package io.haikova.amiilibo.presentation.home
 
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.haikova.amiilibo.data.AmiiboModel
 import io.haikova.amiilibo.data.amiibo.AmiiboRepository
-import io.haikova.amiilibo.domain.MainInteractor
+import io.haikova.amiilibo.domain.HomeInteractor
 import io.haikova.amiilibo.presentation.common.ListItem
-import io.haikova.amiilibo.presentation.main.adapter.AmiiboItem
+import io.haikova.amiilibo.presentation.home.adapter.AmiiboItem
 import io.haikova.amiilibo.presentation.options.AmiiboOptionsType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -18,14 +15,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-  private val mainInteractor: MainInteractor,
+class HomeViewModel @Inject constructor(
+  private val mainInteractor: HomeInteractor,
   private val amiiboRepository: AmiiboRepository
 ) : ViewModel() {
 
-  private val _amiiboData: MutableLiveData<List<ListItem>> by lazy {
-    MutableLiveData<List<ListItem>>()
-  }
+  private val amiiboOptionsData: MutableLiveData<AmiiboOptionsData> = MutableLiveData()
+
+  private val _amiiboData: LiveData<List<ListItem>> = amiiboRepository.getAllAmiibo().map { it.map {model -> model.map()} }
   val amiiboData: LiveData<List<ListItem>> = _amiiboData
 
   private val _isProgressShow: MutableLiveData<Boolean> by lazy {
@@ -41,11 +38,6 @@ class MainViewModel @Inject constructor(
 
   init {
     viewModelScope.launch {
-      mainInteractor.getAmiiboData().collect { data ->
-        _amiiboData.postValue(data.map { it.map() })
-      }
-    }
-    viewModelScope.launch {
       mainInteractor.getProgressData().collect {
         _isProgressShow.postValue(it)
       }
@@ -55,34 +47,19 @@ class MainViewModel @Inject constructor(
     }
   }
 
-  private fun loadAmiiboData() {
-    viewModelScope.launch(Dispatchers.IO) {
-      _isProgressShow.postValue(true)
-      _amiiboData.postValue(
-        amiiboRepository.getAllAmiibo().map { it.map() }
-      )
-      _isProgressShow.postValue(false)
-    }
-  }
 
   fun getAmiiboByOptions(amiiboOptions: AmiiboOptionsData) {
-    viewModelScope.launch(Dispatchers.IO) {
+/*    viewModelScope.launch(Dispatchers.IO) {
       _isProgressShow.postValue(true)
       _amiiboData.postValue(
         amiiboRepository.getAmiiboByOptions(amiiboOptions).map { it.map() }
       )
       _isProgressShow.postValue(false)
-    }
+    }*/
   }
 
   fun updateAmiiboOptions(type: AmiiboOptionsType, value: String?) {
     when (type) {
-      AmiiboOptionsType.LIST -> {
-        _amiiboOptions.postValue(
-        _amiiboOptions.value?.copy(listType = value)
-          ?: AmiiboOptionsData(listType = value)
-      )
-      }
       AmiiboOptionsType.AMIIBO_SERIES -> {
         _amiiboOptions.postValue(
           _amiiboOptions.value?.copy(amiiboSeries = value)
@@ -111,19 +88,21 @@ class MainViewModel @Inject constructor(
 
   }
 
-  private fun AmiiboModel.map(): AmiiboItem {
-    return AmiiboItem(
-      id = this.id,
-      head = this.head,
-      tail = this.tail,
-      image = this.image,
-      name = this.name,
-      game = this.gameSeries
-    )
-  }
-
   private fun isDataUpToDate() {
 
   }
 
+}
+
+fun AmiiboModel.map(): AmiiboItem {
+  return AmiiboItem(
+    id = this.id,
+    head = this.head,
+    tail = this.tail,
+    image = this.image,
+    name = this.name,
+    game = this.gameSeries,
+    isOwned = this.isOwned,
+    isFavourite = this.isFavourite
+  )
 }

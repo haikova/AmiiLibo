@@ -29,7 +29,6 @@ class OptionsViewModel @Inject constructor(
     viewModelScope.launch(Dispatchers.IO) {
       _amiiboOptionsList.postValue(
         when (optionType) {
-          AmiiboOptionsType.LIST -> optionsRepository.getListOptions()
           AmiiboOptionsType.AMIIBO_SERIES -> optionsRepository.getAmiiboSeriesOptions()
           AmiiboOptionsType.GAME_SERIES -> optionsRepository.getGameSeriesOptions()
           AmiiboOptionsType.AMIIBO_TYPE -> optionsRepository.getAmiiboTypeOptions()
@@ -41,5 +40,5 @@ class OptionsViewModel @Inject constructor(
 }
 
 enum class AmiiboOptionsType {
-    LIST, AMIIBO_SERIES, GAME_SERIES, AMIIBO_TYPE, CHARACTER
+  AMIIBO_SERIES, GAME_SERIES, AMIIBO_TYPE, CHARACTER
 }

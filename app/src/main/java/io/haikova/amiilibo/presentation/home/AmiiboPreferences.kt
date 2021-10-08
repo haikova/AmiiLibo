@@ -1,4 +1,4 @@
-package io.haikova.amiilibo.presentation.main
+package io.haikova.amiilibo.presentation.home
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -7,8 +7,8 @@ import io.haikova.amiilibo.data.api.AmiiboApi
 import io.haikova.amiilibo.data.api.AmiiboDto
 import io.haikova.amiilibo.data.api.AmiiboResponseDto
 import io.haikova.amiilibo.data.db.*
-import io.haikova.amiilibo.presentation.main.AmiiboOptionsData
-import io.haikova.amiilibo.presentation.main.AmiiboPreferences
+import io.haikova.amiilibo.presentation.home.AmiiboOptionsData
+import io.haikova.amiilibo.presentation.home.AmiiboPreferences
 import java.util.*
 import javax.inject.Inject
 
@@ -18,21 +18,14 @@ class AmiiboRepositoryImpl @Inject constructor(
   private val api: AmiiboApi
 ) : AmiiboRepository {
 
-  override suspend fun getAllAmiibo(): List<AmiiboModel> {
-    return if (isDataUpToDate()) {
-      amiiboDao.getAllAmiibo().map { it.model() }
-    } else {
-      amiiboDao.insertAllAmiibo(api.getAllAmiibo().model().map { it.entity() })
-      amiiboDao.getAllAmiibo().map { it.model() }
-    }
+  override fun getAllAmiibo(): LiveData<List<AmiiboModel>> {
+    return amiiboDao.getAllAmiiboLiveData().map { it.map { entity -> entity.model() } }
   }
 
   override suspend fun getAmiiboByOptions(
     amiiboOptionsData: AmiiboOptionsData
   ): List<AmiiboModel> {
     return amiiboDao.getAmiiboByOptions(
-      if (AmiiboListType.OWNED.name.equals(amiiboOptionsData.listType, true)) true else null,
-      if (AmiiboListType.WHISHLIST.name.equals(amiiboOptionsData.listType, true)) true else null,
       amiiboOptionsData.amiiboSeries,
       amiiboOptionsData.gameSeries,
       amiiboOptionsData.amiiboType,
@@ -90,28 +83,6 @@ class AmiiboRepositoryImpl @Inject constructor(
     )
   }
 
-  private fun AmiiboEntity.model(): AmiiboModel {
-    return AmiiboModel(
-      id = id,
-      amiiboSeries = this.amiiboSeries,
-      character = this.character,
-      gameSeries = this.gameSeries,
-      head = this.head,
-      image = this.image,
-      name = this.name,
-      releaseCountryMap = mapOf(
-        "au" to this.auRelease,
-        "eu" to this.euRelease,
-        "jp" to this.jpRelease,
-        "na" to this.naRelease
-      ),
-      tail = this.tail,
-      type = AmiiboType.valueOf(this.type.toUpperCase(Locale.getDefault())),
-      isOwned = isOwned,
-      isFavourite = isFavourite
-    )
-  }
-
   private fun AmiiboModel.entity(): AmiiboEntity {
     return AmiiboEntity(
       id = id,
@@ -131,4 +102,26 @@ class AmiiboRepositoryImpl @Inject constructor(
       isFavourite = isFavourite
     )
   }
+}
+
+fun AmiiboEntity.model(): AmiiboModel {
+  return AmiiboModel(
+    id = id,
+    amiiboSeries = this.amiiboSeries,
+    character = this.character,
+    gameSeries = this.gameSeries,
+    head = this.head,
+    image = this.image,
+    name = this.name,
+    releaseCountryMap = mapOf(
+      "au" to this.auRelease,
+      "eu" to this.euRelease,
+      "jp" to this.jpRelease,
+      "na" to this.naRelease
+    ),
+    tail = this.tail,
+    type = AmiiboType.valueOf(this.type.toUpperCase(Locale.getDefault())),
+    isOwned = isOwned,
+    isFavourite = isFavourite
+  )
 }

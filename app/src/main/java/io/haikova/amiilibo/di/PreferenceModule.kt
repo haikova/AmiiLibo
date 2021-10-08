@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.haikova.amiilibo.presentation.main.AmiiboPreferences
+import io.haikova.amiilibo.presentation.home.AmiiboPreferences
 import javax.inject.Singleton
 
 @Module
