@@ -21,13 +21,4 @@ abstract class OptionsModule {
   @ViewModelScoped
   abstract fun bindOptionsRepository(optionsRepository: OptionsRepositoryImpl): OptionsRepository
 
-  companion object {
-    @Provides
-    @ViewModelScoped
-    fun provideOptionsType(
-      handle: SavedStateHandle
-    ) : AmiiboOptionsType {
-      return (handle.get<String>(OPTIONS_TYPE)?.let { valueOf(it) } ?: throw IllegalArgumentException("Illegal amiibo argument type"))
-    }
-  }
 }

@@ -25,6 +25,8 @@ class HomeViewModel @Inject constructor(
   private val _amiiboData: LiveData<List<ListItem>> = amiiboRepository.getAllAmiibo().map { it.map {model -> model.map()} }
   val amiiboData: LiveData<List<ListItem>> = _amiiboData
 
+  private val _optionsData: MutableLiveData<AmiiboOptionsData> = MutableLiveData()
+
   private val _isProgressShow: MutableLiveData<Boolean> by lazy {
     MutableLiveData<Boolean>(false)
   }
@@ -50,15 +52,14 @@ class HomeViewModel @Inject constructor(
 
   fun getAmiiboByOptions(amiiboOptions: AmiiboOptionsData) {
 /*    viewModelScope.launch(Dispatchers.IO) {
-      _isProgressShow.postValue(true)
+      _optionsData.postValue(amiiboOptions)
       _amiiboData.postValue(
         amiiboRepository.getAmiiboByOptions(amiiboOptions).map { it.map() }
       )
-      _isProgressShow.postValue(false)
     }*/
   }
 
-  fun updateAmiiboOptions(type: AmiiboOptionsType, value: String?) {
+/*  fun updateAmiiboOptions(type: AmiiboOptionsType, value: String?) {
     when (type) {
       AmiiboOptionsType.AMIIBO_SERIES -> {
         _amiiboOptions.postValue(
@@ -86,7 +87,7 @@ class HomeViewModel @Inject constructor(
       }
     }
 
-  }
+  }*/
 
   private fun isDataUpToDate() {
 

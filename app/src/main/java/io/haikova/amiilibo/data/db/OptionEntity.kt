@@ -11,7 +11,7 @@ data class OptionEntity (
 )
 
 enum class AmiiboOptionsEntityType {
-  LIST, AMIIBO_SERIES, GAME_SERIES, AMIIBO_TYPE, CHARACTER
+  AMIIBO_SERIES, GAME_SERIES, AMIIBO_TYPE, CHARACTER
 }
 
 enum class AmiiboListType(val title: String) {

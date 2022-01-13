@@ -1,5 +1,7 @@
 package io.haikova.amiilibo.presentation.home
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,16 +11,22 @@ import androidx.core.view.children
 import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import io.haikova.amiilibo.R
+import io.haikova.amiilibo.data.OptionModel
 import io.haikova.amiilibo.data.db.AmiiboListType
 import io.haikova.amiilibo.databinding.FragmentHomeBinding
 import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsActivity
 import io.haikova.amiilibo.presentation.home.adapter.MainAdapterDelegates
-import io.haikova.amiilibo.presentation.options.AmiiboOptionsType
+import io.haikova.amiilibo.presentation.options.OptionsViewModel
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.content.res.ResourcesCompat
+import io.haikova.amiilibo.R
+import io.haikova.amiilibo.data.AmiiboOptionsType
+import io.haikova.amiilibo.presentation.common.ListItem
+import io.haikova.amiilibo.presentation.home.adapter.AmiiboLoadingItem
 import io.haikova.amiilibo.presentation.options.OptionsDialogFragment
-import io.haikova.amiilibo.presentation.options.OptionsDialogFragment.Companion.OPTIONS_TYPE
 
 
 @AndroidEntryPoint
@@ -32,11 +40,13 @@ class HomeFragment : Fragment() {
     ListDelegationAdapter(
       MainAdapterDelegates.amiiboDelegate(glide) {
         openDetailsScreen(it.id)
-      }
+      },
+      MainAdapterDelegates.amiiboLoadingDelegate()
     )
   }
 
   private val viewModel: HomeViewModel by viewModels()
+  private val optionsViewModel: OptionsViewModel by activityViewModels()
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -50,40 +60,11 @@ class HomeFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     with(binding) {
       recyclerViewAmiibo.adapter = amiiboAdapter
+      val loadingItemsList = mutableListOf<ListItem>()
+      for (i in 0..14) loadingItemsList.add(AmiiboLoadingItem)
+      amiiboAdapter.items = loadingItemsList
 
-      chipSeries.setOnClickListener { openOptionsDialog(AmiiboOptionsType.AMIIBO_SERIES) }
-      chipGameSeries.setOnClickListener { openOptionsDialog(AmiiboOptionsType.GAME_SERIES) }
-      chipType.setOnClickListener { openOptionsDialog(AmiiboOptionsType.AMIIBO_TYPE) }
-      chipCharacter.setOnClickListener { openOptionsDialog(AmiiboOptionsType.CHARACTER) }
-
-      chipSeries.setOnCloseIconClickListener {
-        chipSeries.apply {
-          text = "Series"
-          isCloseIconVisible = false
-          viewModel.updateAmiiboOptions(AmiiboOptionsType.AMIIBO_SERIES, null)
-        }
-      }
-      chipGameSeries.setOnCloseIconClickListener {
-        chipGameSeries.apply {
-          text = "Game series"
-          isCloseIconVisible = false
-          viewModel.updateAmiiboOptions(AmiiboOptionsType.GAME_SERIES, null)
-        }
-      }
-      chipType.setOnCloseIconClickListener {
-        chipType.apply {
-          text = "Type"
-          isCloseIconVisible = false
-          viewModel.updateAmiiboOptions(AmiiboOptionsType.AMIIBO_TYPE, null)
-        }
-      }
-      chipCharacter.setOnCloseIconClickListener {
-        chipCharacter.apply {
-          text = "Character"
-          isCloseIconVisible = false
-          viewModel.updateAmiiboOptions(AmiiboOptionsType.CHARACTER, null)
-        }
-      }
+      filterButton.setOnClickListener { openOptionsDialog() }
     }
 
 
@@ -92,20 +73,37 @@ class HomeFragment : Fragment() {
       amiiboAdapter.notifyDataSetChanged()
     })
 
-    viewModel.isProgressShow.observe(viewLifecycleOwner) { show ->
-      when (show) {
-        true -> {
-          binding.progressBar.visibility = View.VISIBLE
-          binding.chipGroup.children.forEach { it.isEnabled = false }
-        }
-        false -> {
-          binding.progressBar.visibility = View.INVISIBLE
-          binding.chipGroup.children.forEach { it.isEnabled = true }
-        }
-      }
-    }
     viewModel.amiiboOptions.observe(viewLifecycleOwner) {
       viewModel.getAmiiboByOptions(it)
+    }
+
+    optionsViewModel.selected.observe(viewLifecycleOwner) { data ->
+      updateOptionChips(data)
+      viewModel.getAmiiboByOptions(
+        AmiiboOptionsData(
+          amiiboSeries = data.filter { it.type == AmiiboOptionsType.AMIIBO_SERIES }.map { it.name }
+        )
+      )
+    }
+  }
+
+  private fun updateOptionChips(data: Set<OptionModel>) {
+    with(binding.selectedOptionsChipGroup) {
+      removeAllViews()
+      data.forEach {
+        addView(Chip(activity).apply {
+          text = it.name
+          isChecked = true
+          isCheckable = false
+          closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_close, null)
+          closeIconTint = ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_enabled)),
+            intArrayOf(Color.parseColor("#FFFFFF"))
+          )
+          isCloseIconVisible = true
+          setOnCloseIconClickListener { }
+        })
+      }
     }
   }
 
@@ -114,33 +112,8 @@ class HomeFragment : Fragment() {
     _binding = null
   }
 
-  private fun openOptionsDialog(type: AmiiboOptionsType) {
+  private fun openOptionsDialog() {
     OptionsDialogFragment().apply {
-      arguments = Bundle().apply {
-        putString(OPTIONS_TYPE, type.toString())
-      }
-      action = { type, title ->
-        when (type) {
-          AmiiboOptionsType.AMIIBO_SERIES -> binding.chipSeries.apply {
-            text = title
-            isCloseIconVisible = true
-          }
-          AmiiboOptionsType.GAME_SERIES -> binding.chipGameSeries.apply {
-            text = title
-            isCloseIconVisible = true
-          }
-          AmiiboOptionsType.AMIIBO_TYPE -> binding.chipType.apply {
-            text = title
-            isCloseIconVisible = true
-          }
-          AmiiboOptionsType.CHARACTER -> binding.chipCharacter.apply {
-            text = title
-            isCloseIconVisible = true
-          }
-        }
-        viewModel.updateAmiiboOptions(type, title)
-      }
-
       show(this@HomeFragment.childFragmentManager, "tag")
     }
   }

@@ -14,13 +14,13 @@ interface AmiiboDao {
 
   @Query(
     """SELECT * FROM amiibos 
-        WHERE (:amiiboSeries IS NULL OR amiiboSeries LIKE :amiiboSeries) 
+        WHERE (:amiiboSeries IS NULL OR amiiboSeries IN (:amiiboSeries)) 
         AND (:gameSeries IS NULL OR gameSeries LIKE :gameSeries) 
         AND (:amiiboType IS NULL OR type LIKE :amiiboType) 
         AND (:character IS NULL OR character LIKE :character)"""
   )
   fun getAmiiboByOptions(
-    amiiboSeries: String? = null,
+    amiiboSeries: List<String>? = null,
     gameSeries: String? = null,
     amiiboType: String? = null,
     character: String? = null
@@ -49,6 +49,9 @@ interface AmiiboDao {
     WHERE type = :type"""
   )
   fun getOptionsByType(type: String): List<OptionEntity>
+
+  @Query("SELECT * FROM options")
+  fun getAllOptions(): List<OptionEntity>
 
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)

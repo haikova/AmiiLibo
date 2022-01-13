@@ -5,12 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.FragemntAmiiboListBinding
+import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsActivity
 import io.haikova.amiilibo.presentation.home.adapter.MainAdapterDelegates
 
 @AndroidEntryPoint
@@ -25,8 +29,9 @@ class AmiiboListFragment : Fragment() {
   private val amiiboAdapter by lazy {
     ListDelegationAdapter(
       MainAdapterDelegates.amiiboDelegate(glide) {
-        //openDetailsScreen(it.id)
-      }
+        openDetailsScreen(it.id)
+      },
+      MainAdapterDelegates.amiiboLoadingDelegate()
     )
   }
 
@@ -45,6 +50,11 @@ class AmiiboListFragment : Fragment() {
       amiiboAdapter.items = data
       amiiboAdapter.notifyDataSetChanged()
     })
+  }
+
+  fun openDetailsScreen(itemId: String) {
+    val bundle = bundleOf(AmiiboDetailsActivity.ITEM_ID to itemId)
+    findNavController().navigate(R.id.action_collectionFragment_to_amiiboDetailsActivity, bundle)
   }
 
   enum class AmiiboListType {

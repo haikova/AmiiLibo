@@ -1,5 +1,8 @@
 package io.haikova.amiilibo.data.options
 
+import io.haikova.amiilibo.data.AmiiboOptionsType
+import io.haikova.amiilibo.data.OptionModel
+import io.haikova.amiilibo.data.OptionsData
 import io.haikova.amiilibo.data.api.AmiiboApi
 import io.haikova.amiilibo.data.api.AmiiboOptionsResponseDto
 import io.haikova.amiilibo.data.db.AmiiboDao
@@ -40,6 +43,10 @@ class OptionsRepositoryImpl @Inject constructor(
 
   override suspend fun getCharacterOptions(): List<String> {
     return amiiboDao.getOptionsByType(AmiiboOptionsEntityType.CHARACTER.toString()).map { it.name }
+  }
+
+  override suspend fun getOptions(): List<OptionModel> {
+    return amiiboDao.getAllOptions().map { OptionModel(it.name, AmiiboOptionsType.valueOf(it.type)) }
   }
 
   override suspend fun updateOptionsDb() {

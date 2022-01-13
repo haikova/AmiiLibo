@@ -1,31 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/filtersBottomSheet"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:maxHeight="450dp"
-  android:orientation="vertical">
+  android:layout_height="wrap_content"
+  android:background="@drawable/background_bottom_sheet">
+
 
   <TextView
-    android:id="@+id/textViewTitle"
-    android:layout_width="match_parent"
+    android:id="@+id/titleTextView"
+    style="@style/Heading2"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:text="Title" />
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:text="Filters"
+    android:textColor="?attr/colorSecondary"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
-  <ScrollView
-    android:id="@+id/scrollViewSelector"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipToPadding="false">
+  <ImageView
+    android:id="@+id/closeButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="18dp"
+    android:layout_marginEnd="18dp"
+    android:src="@drawable/ic_close"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.chip.ChipGroup
-      android:id="@+id/chipGroup"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:padding="16dp"
-      app:singleSelection="true">
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerView"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:orientation="vertical"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
-    </com.google.android.material.chip.ChipGroup>
-  </ScrollView>
-</LinearLayout>
+  <Button
+    android:id="@+id/ownButton"
+    style="@style/PrimaryButton"
+    android:layout_width="0dp"
+    android:layout_height="52dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="24dp"
+    android:text="Filter"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

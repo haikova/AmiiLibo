@@ -15,10 +15,22 @@
   <fragment
     android:id="@+id/collectionFragment"
     android:name="io.haikova.amiilibo.presentation.collection.CollectionFragment"
-    android:label="CollectionFragment" />
+    android:label="CollectionFragment" >
+    <action
+      android:id="@+id/action_collectionFragment_to_amiiboDetailsActivity"
+      app:destination="@id/amiiboDetailsActivity" />
+  </fragment>
   <activity
     android:id="@+id/amiiboDetailsActivity"
     android:name="io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsActivity"
     android:label="AmiiboDetailsActivity" >
   </activity>
+  <fragment
+    android:id="@+id/amiiboListFragment"
+    android:name="io.haikova.amiilibo.presentation.amiibolist.AmiiboListFragment"
+    android:label="AmiiboListFragment" >
+    <action
+      android:id="@+id/action_amiiboListFragment_to_amiiboDetailsActivity"
+      app:destination="@id/amiiboDetailsActivity" />
+  </fragment>
 </navigation>

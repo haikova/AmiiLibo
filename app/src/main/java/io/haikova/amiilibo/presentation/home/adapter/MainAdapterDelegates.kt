@@ -5,6 +5,7 @@ import com.bumptech.glide.RequestManager
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.ItemHomeAmiiboBinding
+import io.haikova.amiilibo.databinding.ItemHomeLoadingAmiiboBinding
 import io.haikova.amiilibo.presentation.common.ListItem
 
 object MainAdapterDelegates {
@@ -45,4 +46,9 @@ object MainAdapterDelegates {
       glide.clear(binding.imageViewAmiibo)
     }
   }
+
+  fun amiiboLoadingDelegate() =
+    adapterDelegateViewBinding<AmiiboLoadingItem, ListItem, ItemHomeLoadingAmiiboBinding>(
+      { layoutInflater, root -> ItemHomeLoadingAmiiboBinding.inflate(layoutInflater, root, false) }
+    ) {}
 }
