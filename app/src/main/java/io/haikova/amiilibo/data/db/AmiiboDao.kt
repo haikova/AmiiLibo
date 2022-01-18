@@ -14,17 +14,17 @@ interface AmiiboDao {
 
   @Query(
     """SELECT * FROM amiibos 
-        WHERE (:amiiboSeries IS NULL OR amiiboSeries IN (:amiiboSeries)) 
-        AND (:gameSeries IS NULL OR gameSeries LIKE :gameSeries) 
-        AND (:amiiboType IS NULL OR type LIKE :amiiboType) 
-        AND (:character IS NULL OR character LIKE :character)"""
+        WHERE (amiiboSeries IN (:amiiboSeries)) 
+        OR (gameSeries IN (:gameSeries)) 
+        OR (type IN (:amiiboType)) 
+        OR (character IN (:character)) """
   )
   fun getAmiiboByOptions(
     amiiboSeries: List<String>? = null,
-    gameSeries: String? = null,
-    amiiboType: String? = null,
-    character: String? = null
-  ): List<AmiiboEntity>
+    gameSeries: List<String>? = null,
+    amiiboType: List<String>? = null,
+    character: List<String>? = null
+  ): LiveData<List<AmiiboEntity>>
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   fun insertAllAmiibo(amiiboList: List<AmiiboEntity>)

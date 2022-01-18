@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.children
 import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -15,12 +14,10 @@ import com.google.android.material.chip.Chip
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.data.OptionModel
-import io.haikova.amiilibo.data.db.AmiiboListType
 import io.haikova.amiilibo.databinding.FragmentHomeBinding
 import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsActivity
 import io.haikova.amiilibo.presentation.home.adapter.MainAdapterDelegates
 import io.haikova.amiilibo.presentation.options.OptionsViewModel
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.res.ResourcesCompat
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.data.AmiiboOptionsType
@@ -73,15 +70,14 @@ class HomeFragment : Fragment() {
       amiiboAdapter.notifyDataSetChanged()
     })
 
-    viewModel.amiiboOptions.observe(viewLifecycleOwner) {
-      viewModel.getAmiiboByOptions(it)
-    }
-
     optionsViewModel.selected.observe(viewLifecycleOwner) { data ->
       updateOptionChips(data)
       viewModel.getAmiiboByOptions(
         AmiiboOptionsData(
-          amiiboSeries = data.filter { it.type == AmiiboOptionsType.AMIIBO_SERIES }.map { it.name }
+          amiiboSeries = data.filter { it.type == AmiiboOptionsType.AMIIBO_SERIES }.map { it.name },
+          gameSeries = data.filter { it.type == AmiiboOptionsType.GAME_SERIES }.map { it.name },
+          amiiboType = data.filter { it.type == AmiiboOptionsType.AMIIBO_TYPE }.map { it.name },
+          character = data.filter { it.type == AmiiboOptionsType.CHARACTER }.map { it.name }
         )
       )
     }
@@ -90,9 +86,9 @@ class HomeFragment : Fragment() {
   private fun updateOptionChips(data: Set<OptionModel>) {
     with(binding.selectedOptionsChipGroup) {
       removeAllViews()
-      data.forEach {
+      data.forEach { item ->
         addView(Chip(activity).apply {
-          text = it.name
+          text = item.name
           isChecked = true
           isCheckable = false
           closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_close, null)
@@ -101,7 +97,9 @@ class HomeFragment : Fragment() {
             intArrayOf(Color.parseColor("#FFFFFF"))
           )
           isCloseIconVisible = true
-          setOnCloseIconClickListener { }
+          setOnCloseIconClickListener {
+            optionsViewModel.removeOption(item)
+          }
         })
       }
     }

@@ -1,5 +1,6 @@
 package io.haikova.amiilibo.data.amiibo
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import io.haikova.amiilibo.data.*
@@ -22,15 +23,22 @@ class AmiiboRepositoryImpl @Inject constructor(
     return amiiboDao.getAllAmiiboLiveData().map { it.map { entity -> entity.model() } }
   }
 
-  override suspend fun getAmiiboByOptions(
+  override fun getAmiiboByOptions(
     amiiboOptionsData: AmiiboOptionsData
-  ): List<AmiiboModel> {
-    return amiiboDao.getAmiiboByOptions(
-      amiiboOptionsData.amiiboSeries,
-      amiiboOptionsData.gameSeries,
-      amiiboOptionsData.amiiboType,
-      amiiboOptionsData.character
-    ).map { it.model() }
+  ): LiveData<List<AmiiboModel>> {
+    return if (amiiboOptionsData.amiiboSeries.isEmpty() &&
+      amiiboOptionsData.gameSeries.isEmpty() &&
+      amiiboOptionsData.gameSeries.isEmpty() &&
+      amiiboOptionsData.character.isEmpty())
+      amiiboDao.getAllAmiiboLiveData().map { it.map { entity -> entity.model() } }
+    else
+      amiiboDao.getAmiiboByOptions(
+        amiiboOptionsData.amiiboSeries,
+        amiiboOptionsData.gameSeries,
+        amiiboOptionsData.amiiboType,
+        amiiboOptionsData.character
+      ).map { data ->
+        data.map { it.model() } }
   }
 
   override suspend fun isDataUpToDate(): Boolean {

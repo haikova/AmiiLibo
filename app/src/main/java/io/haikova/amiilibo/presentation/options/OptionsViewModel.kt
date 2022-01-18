@@ -3,7 +3,6 @@ package io.haikova.amiilibo.presentation.options
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.haikova.amiilibo.data.OptionModel
-import io.haikova.amiilibo.data.OptionsData
 import io.haikova.amiilibo.data.options.OptionsRepository
 import io.haikova.amiilibo.presentation.common.ListItem
 import io.haikova.amiilibo.presentation.options.adapter.OptionItem
@@ -70,6 +69,16 @@ class OptionsViewModel @Inject constructor(
       data[data.indexOf(data.filterIsInstance<OptionsDataItem>().first {it.type == item.type})] = OptionsDataItem(optionsList, item.type)
       _data.postValue(data)
     }
+  }
+
+  fun removeOption(item: OptionModel) {
+    selected.value?.let {
+      val temp: MutableSet<OptionModel> = it.toMutableSet()
+      temp.addAll(it)
+      temp.remove(item)
+      _selected.value = temp
+    }
+    updateData(item.item())
   }
 }
 
