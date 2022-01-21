@@ -6,24 +6,29 @@ import androidx.room.*
 @Dao
 interface AmiiboDao {
 
-  @Query("SELECT * FROM amiibos")
-  fun getAllAmiiboLiveData(): LiveData<List<AmiiboEntity>>
+  @Query(
+    """SELECT * FROM amiibos
+      WHERE (name LIKE '%' || :search || '%') """
+  )
+  fun getAllAmiiboLiveData(search: String = ""): LiveData<List<AmiiboEntity>>
 
   @Query("SELECT * FROM amiibos")
   fun getAllAmiibo(): List<AmiiboEntity>
 
   @Query(
     """SELECT * FROM amiibos 
-        WHERE (amiiboSeries IN (:amiiboSeries)) 
-        OR (gameSeries IN (:gameSeries)) 
-        OR (type IN (:amiiboType)) 
-        OR (character IN (:character)) """
+        WHERE ((amiiboSeries IN (:amiiboSeries)) 
+        OR (gameSeries IN (:gameSeries))
+        OR (character IN (:character))
+        OR (type IN (:amiiboType)))
+        AND (name LIKE '%' || :search || '%')"""
   )
   fun getAmiiboByOptions(
     amiiboSeries: List<String>? = null,
     gameSeries: List<String>? = null,
     amiiboType: List<String>? = null,
-    character: List<String>? = null
+    character: List<String>? = null,
+    search: String = ""
   ): LiveData<List<AmiiboEntity>>
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)

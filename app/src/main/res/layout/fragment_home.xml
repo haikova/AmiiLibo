@@ -22,18 +22,22 @@
     android:id="@+id/sarchTextField"
     style="@style/SearchTextFieldStyle"
     android:layout_width="0dp"
-    android:layout_height="44dp"
+    android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
+    app:hintEnabled="false"
+    android:hint=""
     android:elevation="10dp"
     app:startIconDrawable="@drawable/ic_favourite"
-    android:hint="Search here"
+    app:endIconMode="clear_text"
     app:layout_constraintEnd_toStartOf="@id/filterButton"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
     <com.google.android.material.textfield.TextInputEditText
+      android:hint="Search here"
+      android:background="@null"
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />
 

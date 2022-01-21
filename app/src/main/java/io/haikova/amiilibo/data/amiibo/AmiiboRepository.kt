@@ -6,7 +6,7 @@ import io.haikova.amiilibo.presentation.home.AmiiboOptionsData
 
 interface AmiiboRepository {
   fun getAllAmiibo(): LiveData<List<AmiiboModel>>
-  fun getAmiiboByOptions(amiiboOptionsData: AmiiboOptionsData): LiveData<List<AmiiboModel>>
+  fun getAmiiboByOptions(amiiboOptionsData: AmiiboOptionsData, searchData: String): LiveData<List<AmiiboModel>>
   fun getAmiiboDetails(id: String): LiveData<AmiiboModel>
   suspend fun isDataUpToDate(): Boolean
   fun getAllAmiiboFromDB(): List<AmiiboModel>

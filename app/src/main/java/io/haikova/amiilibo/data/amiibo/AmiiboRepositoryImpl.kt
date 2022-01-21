@@ -24,19 +24,21 @@ class AmiiboRepositoryImpl @Inject constructor(
   }
 
   override fun getAmiiboByOptions(
-    amiiboOptionsData: AmiiboOptionsData
+    amiiboOptionsData: AmiiboOptionsData,
+    searchData: String
   ): LiveData<List<AmiiboModel>> {
     return if (amiiboOptionsData.amiiboSeries.isEmpty() &&
       amiiboOptionsData.gameSeries.isEmpty() &&
       amiiboOptionsData.gameSeries.isEmpty() &&
       amiiboOptionsData.character.isEmpty())
-      amiiboDao.getAllAmiiboLiveData().map { it.map { entity -> entity.model() } }
+      amiiboDao.getAllAmiiboLiveData(searchData).map { it.map { entity -> entity.model() } }
     else
       amiiboDao.getAmiiboByOptions(
         amiiboOptionsData.amiiboSeries,
         amiiboOptionsData.gameSeries,
         amiiboOptionsData.amiiboType,
-        amiiboOptionsData.character
+        amiiboOptionsData.character,
+        searchData
       ).map { data ->
         data.map { it.model() } }
   }

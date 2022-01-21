@@ -24,9 +24,20 @@ class HomeViewModel @Inject constructor(
   private val _amiiboOptions: MutableLiveData<AmiiboOptionsData> =
     MutableLiveData<AmiiboOptionsData>(AmiiboOptionsData())
 
+  private val _searchData: MutableLiveData<String> = MutableLiveData("")
+
+  private val _filterData = MediatorLiveData<Pair<AmiiboOptionsData, String>>().apply {
+    addSource(_amiiboOptions) {
+      value = Pair(it, _searchData.value ?: "")
+    }
+    addSource(_searchData) {
+      value = Pair(_amiiboOptions.value ?: AmiiboOptionsData(), it)
+    }
+  }
+
   private val _amiiboData: LiveData<List<ListItem>> =
-    Transformations.switchMap(_amiiboOptions) { param ->
-      amiiboRepository.getAmiiboByOptions(param).map { it.map { model -> model.map() } }
+    Transformations.switchMap(_filterData) { param ->
+      amiiboRepository.getAmiiboByOptions(param.first, param.second).map { it.map { model -> model.map() } }
     }
   val amiiboData: LiveData<List<ListItem>> = _amiiboData
 
@@ -41,6 +52,13 @@ class HomeViewModel @Inject constructor(
       _amiiboOptions.postValue(amiiboOptions)
     }
   }
+
+  fun setSearchData(searchData: String) {
+    viewModelScope.launch(Dispatchers.IO) {
+      _searchData.postValue(searchData)
+    }
+  }
+
 }
 
 fun AmiiboModel.map(): AmiiboItem {

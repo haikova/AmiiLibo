@@ -19,6 +19,7 @@ import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsActivity
 import io.haikova.amiilibo.presentation.home.adapter.MainAdapterDelegates
 import io.haikova.amiilibo.presentation.options.OptionsViewModel
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.doOnTextChanged
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.data.AmiiboOptionsType
 import io.haikova.amiilibo.presentation.common.ListItem
@@ -62,6 +63,9 @@ class HomeFragment : Fragment() {
       amiiboAdapter.items = loadingItemsList
 
       filterButton.setOnClickListener { openOptionsDialog() }
+      sarchTextField.editText?.doOnTextChanged { text, start, before, count ->
+        viewModel.setSearchData(text.toString())
+      }
     }
 
 
