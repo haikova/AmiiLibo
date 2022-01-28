@@ -1,17 +1,14 @@
 package io.haikova.amiilibo.presentation.home
 
 
-import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.haikova.amiilibo.data.AmiiboModel
-import io.haikova.amiilibo.data.AmiiboOptionsType
 import io.haikova.amiilibo.data.amiibo.AmiiboRepository
 import io.haikova.amiilibo.domain.HomeInteractor
 import io.haikova.amiilibo.presentation.common.ListItem
 import io.haikova.amiilibo.presentation.home.adapter.AmiiboItem
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,10 +18,14 @@ class HomeViewModel @Inject constructor(
   private val amiiboRepository: AmiiboRepository
 ) : ViewModel() {
 
+  private val _screenState = MutableLiveData<ScreenState>(HomeState)
+  val screenState = _screenState
+
   private val _amiiboOptions: MutableLiveData<AmiiboOptionsData> =
     MutableLiveData<AmiiboOptionsData>(AmiiboOptionsData())
 
   private val _searchData: MutableLiveData<String> = MutableLiveData("")
+  val searchData: MutableLiveData<String> = _searchData
 
   private val _filterData = MediatorLiveData<Pair<AmiiboOptionsData, String>>().apply {
     addSource(_amiiboOptions) {
@@ -59,6 +60,14 @@ class HomeViewModel @Inject constructor(
     }
   }
 
+  fun changeState(focused: Boolean, searchQuery: String) {
+    _screenState.value = when {
+      focused && searchQuery.isBlank() -> SearchInitialState
+      focused && searchQuery.isNotBlank() -> SearchingState
+      !focused -> HomeState
+      else -> HomeState
+    }
+  }
 }
 
 fun AmiiboModel.map(): AmiiboItem {
@@ -72,4 +81,24 @@ fun AmiiboModel.map(): AmiiboItem {
     isOwned = this.isOwned,
     isFavourite = this.isFavourite
   )
+
+
+}
+
+sealed class ScreenState {
+  open val isFilterButtonVisible = true
+  open val isSearchImageVisible = false
+  open val isSearchTextVisible = false
+  open val isListVisible = true
+}
+
+object HomeState : ScreenState()
+object SearchInitialState : ScreenState() {
+  override val isFilterButtonVisible = false
+  override val isSearchImageVisible = true
+  override val isSearchTextVisible = true
+  override val isListVisible = false
+}
+object SearchingState : ScreenState() {
+  override val isFilterButtonVisible = false
 }
