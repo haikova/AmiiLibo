@@ -1,31 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <ImageView
-    android:id="@+id/gradientView"
-    android:layout_width="match_parent"
-    android:layout_height="216dp"
-    android:alpha="0"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:alpha="1"
-    tools:background="@color/red_e1" />
-
   <com.google.android.material.appbar.AppBarLayout
     android:id="@+id/appBarLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
     android:background="@android:color/transparent">
-
-    <com.google.android.material.appbar.CollapsingToolbarLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
       <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -35,20 +22,27 @@
         app:layout_collapseMode="pin"
         app:navigationIcon="@drawable/ic_back" />
 
-      <Space
-        android:id="@+id/space"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_collapseMode="parallax" />
-
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
-
   </com.google.android.material.appbar.AppBarLayout>
+
+  <ImageView
+    android:id="@+id/gradientView"
+    android:layout_width="match_parent"
+    android:layout_height="216dp"
+    android:alpha="0"
+    app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    tools:alpha="1"
+    tools:background="@color/red_e1" />
 
   <androidx.core.widget.NestedScrollView
     android:id="@+id/bottomSheet"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,6 +52,7 @@
       <View
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/rounded_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,24 +61,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-      <Space
-        android:id="@+id/descriptionTopSpace"
-        android:layout_width="0dp"
-        android:layout_height="96dp"
-        app:layout_constraintBottom_toTopOf="@id/nameData"
+      <ImageView
+        android:id="@+id/amiiboImage"
+        android:layout_width="wrap_content"
+        android:layout_height="234dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/amiibo_thumb" />
 
       <TextView
         android:id="@+id/nameData"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="102dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="24dp"
         android:textAppearance="@style/Heading1"
         android:textColor="?colorSecondary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amiiboImage"
         tools:text="Princess Zelda" />
 
       <TextView
@@ -228,20 +229,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.core.widget.NestedScrollView>
 
-  <ImageView
-    android:id="@+id/amiiboImage"
-    android:layout_width="wrap_content"
-    android:layout_height="234dp"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="80dp"
-    android:paddingBottom="24dp"
-    android:scaleType="fitCenter"
-    android:src="@drawable/amiibo_thumb"
-    app:layout_behavior=".presentation.amiibo.AmiiboImageBehavior" />
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
     android:layout_gravity="bottom">
 
     <Button
@@ -273,4 +267,4 @@
       app:tint="@color/white" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
