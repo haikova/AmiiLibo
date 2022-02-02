@@ -44,6 +44,8 @@ class OptionsDialogFragment : BottomSheetDialogFragment() {
       FilterAdapterDelegates.optionsListDelegate { optionsViewModel.optionClicked(it) }
     )
   }
+  
+  override fun getTheme() = R.style.BottomSheetDialogTheme
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -56,8 +58,8 @@ class OptionsDialogFragment : BottomSheetDialogFragment() {
       val d = dialog as BottomSheetDialog
       val bottomSheet = d.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout
       val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-      bottomSheetBehavior.isFitToContents = false
-      bottomSheetBehavior.expandedOffset = 200.toPx()
+      bottomSheetBehavior.peekHeight = 375.toPx()
+      bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
       bottomSheetBehavior.addBottomSheetCallback(object :
         BottomSheetBehavior.BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -68,7 +70,6 @@ class OptionsDialogFragment : BottomSheetDialogFragment() {
         }
 
       })
-      bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
     }
 
     return binding.root
@@ -76,6 +77,9 @@ class OptionsDialogFragment : BottomSheetDialogFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.recyclerView.adapter = adapter
+    binding.closeButton.setOnClickListener {
+      dialog?.dismiss()
+    }
 
     optionsViewModel.data.observe(viewLifecycleOwner, { data ->
       adapter.items = data

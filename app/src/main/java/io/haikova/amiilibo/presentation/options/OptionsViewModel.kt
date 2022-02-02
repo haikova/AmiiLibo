@@ -35,8 +35,6 @@ class OptionsViewModel @Inject constructor(
         add(OptionsDataItem(options.filter { it.type.toString() == OptionsType.GAME_SERIES.toString() }.map { it.item() }, OptionsType.GAME_SERIES))
         add(TitleItem("Character"))
         add(OptionsDataItem(options.filter { it.type.toString() == OptionsType.CHARACTER.toString() }.map { it.item() }, OptionsType.CHARACTER))
-        add(TitleItem("Type"))
-        add(OptionsDataItem(options.filter { it.type.toString() == OptionsType.AMIIBO_TYPE.toString() }.map { it.item() }, OptionsType.AMIIBO_TYPE))
       }
       _data.postValue(list)
     }

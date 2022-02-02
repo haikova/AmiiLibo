@@ -15,14 +15,26 @@
     <item name="Neutral700">@color/gray_79</item>
     <item name="Neutral900">@color/gray_5c</item>
     <item name="fontFamily">@font/poppins</item>
-
     <item name="chipStyle">@style/FilterChip</item>
   </style>
 
-  <style name="DialogStyle" parent="Theme.MaterialComponents.DayNight.Dialog">
-    <item name="android:windowMinWidthMajor">97%</item>
-    <item name="android:windowMinWidthMinor">97%</item>
+  <!-- BottomSheetDialog theme -->
+  <style name="BottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+    <item name="colorPrimary">@color/red_e1</item>
+    <item name="colorPrimaryVariant">@color/red_e1</item>
+    <item name="colorOnPrimary">@color/white</item>
+    <item name="colorSecondary">@color/gray_39</item>
+    <item name="colorSecondaryVariant">@color/gray_39</item>
+    <item name="colorOnSecondary">@color/black</item>
+    <item name="bottomSheetStyle">@style/RoundedBottomSheetModalStyle</item>
+    <item name="chipStyle">@style/FilterChip</item>
   </style>
+
+  <style name="RoundedBottomSheetModalStyle" parent="Widget.Design.BottomSheet.Modal">
+    <item name="android:background">@drawable/background_bottom_sheet</item>
+  </style>
+
+  <!-- Typography -->
 
   <style name="Heading1">
     <item name="fontFamily">@font/poppins</item>
