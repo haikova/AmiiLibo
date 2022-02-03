@@ -32,7 +32,7 @@ class CollectionFragment : Fragment() {
     TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
       tab.text = when (position) {
         0 -> "Collection"
-        1 -> "Favourite"
+        1 -> "Wish List"
         else -> ""
       }
     }.attach()

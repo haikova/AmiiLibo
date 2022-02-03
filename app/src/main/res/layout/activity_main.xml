@@ -19,6 +19,8 @@
     app:navGraph="@navigation/main" />
 
   <com.google.android.material.bottomnavigation.BottomNavigationView
+    app:itemTextAppearanceActive="@style/Caption5"
+    app:itemTextAppearanceInactive="@style/Caption5"
     android:id="@+id/bottom_navigation"
     android:layout_width="0dp"
     android:layout_height="wrap_content"

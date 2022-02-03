@@ -12,7 +12,9 @@
         <entry key="..\:/AndroidStudioProjects/AmiiLibo/app/src/main/res/drawable/ic_close.xml" value="0.5583333333333333" />
         <entry key="..\:/AndroidStudioProjects/AmiiLibo/app/src/main/res/drawable/ic_filter.xml" value="0.5583333333333333" />
         <entry key="..\:/AndroidStudioProjects/AmiiLibo/app/src/main/res/drawable/rounded_background.xml" value="0.5583333333333333" />
-        <entry key="..\:/AndroidStudioProjects/AmiiLibo/app/src/main/res/layout/activity_amiibo_details.xml" value="0.33489583333333334" />
+        <entry key="..\:/AndroidStudioProjects/AmiiLibo/app/src/main/res/font/poppins.xml" value="0.5723958333333333" />
+        <entry key="..\:/AndroidStudioProjects/AmiiLibo/app/src/main/res/font/roboto.xml" value="0.5723958333333333" />
+        <entry key="..\:/AndroidStudioProjects/AmiiLibo/app/src/main/res/layout/activity_amiibo_details.xml" value="0.6" />
         <entry key="..\:/AndroidStudioProjects/AmiiLibo/app/src/main/res/layout/activity_flow.xml" value="0.5421875" />
         <entry key="..\:/AndroidStudioProjects/AmiiLibo/app/src/main/res/layout/activity_main.xml" value="0.44711538461538464" />
         <entry key="..\:/AndroidStudioProjects/AmiiLibo/app/src/main/res/layout/fragemnt_amiibo_list.xml" value="0.5421875" />

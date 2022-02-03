@@ -34,8 +34,6 @@ object FilterAdapterDelegates {
       with(binding) {
         chip.text = item.name
         chip.isChecked = item.isSelected
-
-        Log.d("meow ", "meow $item")
       }
     }
   }

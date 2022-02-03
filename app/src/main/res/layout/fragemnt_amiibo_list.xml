@@ -15,13 +15,14 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
-  <TextView
+  <com.google.android.material.textview.MaterialTextView
     android:id="@+id/emptyTitleTextView"
     style="@style/Heading2"
     android:textColor="?Secondary"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:gravity="center"
+    app:lineHeight="36sp"
     android:layout_marginStart="24dp"
     android:layout_marginTop="16dp"
     android:layout_marginEnd="24dp"
@@ -30,11 +31,12 @@
     app:layout_constraintTop_toBottomOf="@id/emptyIcon"
     tools:text="Home for your Collection" />
 
-  <TextView
+  <com.google.android.material.textview.MaterialTextView
     android:id="@+id/emptyTextView"
     style="@style/Body2"
-    android:textColor="?Neutral900"
+    android:textColor="?Neutral500"
     android:layout_width="0dp"
+    app:lineHeight="20.8sp"
     android:layout_height="wrap_content"
     app:layout_constraintEnd_toEndOf="parent"
     android:layout_marginStart="48dp"
