@@ -96,6 +96,14 @@
 
 
   <View
+    app:layout_constraintTop_toTopOf="@id/recyclerViewAmiibo"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_width="0dp"
+    android:layout_height="16dp"
+    android:background="@drawable/list_top_gradient"/>
+
+  <View
     android:id="@+id/searchImageView"
     android:layout_width="180dp"
     android:background="@color/gray_96"

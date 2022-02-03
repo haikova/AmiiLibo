@@ -33,4 +33,13 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/tab_layout"/>
+
+  <View
+    app:layout_constraintTop_toTopOf="@id/view_pager"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_width="0dp"
+    android:layout_height="16dp"
+    android:background="@drawable/list_top_gradient"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
