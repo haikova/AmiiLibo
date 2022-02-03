@@ -10,6 +10,7 @@
     <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
     <item name="android:windowLightStatusBar">true</item>
     <item name="Primary">@color/red_e1</item>
+    <item name="Secondary">@color/gray_39</item>
     <item name="Neutral300">@color/gray_d7</item>
     <item name="Neutral500">@color/gray_96</item>
     <item name="Neutral700">@color/gray_79</item>

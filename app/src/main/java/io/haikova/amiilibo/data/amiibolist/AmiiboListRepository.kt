@@ -6,4 +6,5 @@ import io.haikova.amiilibo.data.db.AmiiboEntity
 
 interface AmiiboListRepository {
   fun getAmiiboList(): LiveData<List<AmiiboModel>>
+  fun getEmptyData(): EmptyCollectionData
 }

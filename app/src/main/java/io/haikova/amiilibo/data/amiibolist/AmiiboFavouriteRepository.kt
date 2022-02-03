@@ -15,4 +15,11 @@ class AmiiboFavouriteRepository @Inject constructor(
   override fun getAmiiboList(): LiveData<List<AmiiboModel>> {
     return amiiboDao.getAmiiboFavouriteList().map { it.map { entity -> entity.model() } }
   }
+
+  override fun getEmptyData(): EmptyCollectionData {
+    return EmptyCollectionData(
+      title = "Your Wish List",
+      text = "Mark items as favourites and you’ll see them here."
+    )
+  }
 }

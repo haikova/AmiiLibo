@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -46,10 +47,26 @@ class AmiiboListFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.recyclerViewAmiibo.adapter = amiiboAdapter
-    viewModel.amiiboData.observe(viewLifecycleOwner, { data ->
-      amiiboAdapter.items = data
-      amiiboAdapter.notifyDataSetChanged()
-    })
+
+    viewModel.amiiboData.observe(viewLifecycleOwner) { data ->
+      if (data.isEmpty()) {
+        viewModel.getEmpyAmiiboData().let {
+          binding.emptyIcon.isVisible = true
+          binding.emptyTitleTextView.isVisible = true
+          binding.emptyTextView.isVisible = true
+          binding.emptyTitleTextView.text = it.title
+          binding.emptyTextView.text = it.text
+          amiiboAdapter.items = data
+          amiiboAdapter.notifyDataSetChanged()
+        }
+      } else {
+        binding.emptyIcon.isVisible = false
+        binding.emptyTitleTextView.isVisible = false
+        binding.emptyTextView.isVisible = false
+        amiiboAdapter.items = data
+        amiiboAdapter.notifyDataSetChanged()
+      }
+    }
   }
 
   fun openDetailsScreen(itemId: String) {
