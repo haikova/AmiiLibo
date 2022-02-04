@@ -2,11 +2,11 @@
   <item
     android:id="@+id/homeFragment"
     android:enabled="true"
-    android:icon="@drawable/ic_favourite"
+    android:icon="@drawable/ic_collection"
     android:title="Everything" />
   <item
     android:id="@+id/collectionFragment"
     android:enabled="true"
-    android:icon="@drawable/ic_favourite_added"
+    android:icon="@drawable/ic_collection"
     android:title="Collection" />
 </menu>

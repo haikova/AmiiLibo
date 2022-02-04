@@ -22,6 +22,7 @@ import io.haikova.amiilibo.R
 import io.haikova.amiilibo.data.AmiiboOptionsType
 import io.haikova.amiilibo.data.OptionModel
 import io.haikova.amiilibo.databinding.FragmentHomeBinding
+import io.haikova.amiilibo.getColorFromAttr
 import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsActivity
 import io.haikova.amiilibo.presentation.common.ListItem
 import io.haikova.amiilibo.presentation.home.adapter.AmiiboLoadingItem
@@ -107,6 +108,29 @@ class HomeFragment : Fragment() {
   private fun updateOptionChips(data: Set<OptionModel>) {
     with(binding.selectedOptionsChipGroup) {
       removeAllViews()
+      if (data.isEmpty()) {
+        binding.filterButton.apply {
+          imageTintList = ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_enabled)),
+            intArrayOf(context.getColorFromAttr(R.attr.Secondary))
+          )
+          supportBackgroundTintList = ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_enabled)),
+            intArrayOf(resources.getColor(R.color.white))
+          )
+        }
+      } else {
+        binding.filterButton.apply {
+          imageTintList = ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_enabled)),
+            intArrayOf(context.getColorFromAttr(R.attr.Primary))
+          )
+          supportBackgroundTintList = ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_enabled)),
+            intArrayOf(context.getColorFromAttr(R.attr.Primary))
+          )
+        }
+      }
       data.forEach { item ->
         addView(Chip(activity).apply {
           text = item.name
@@ -115,7 +139,7 @@ class HomeFragment : Fragment() {
           closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_close, null)
           closeIconTint = ColorStateList(
             arrayOf(intArrayOf(android.R.attr.state_enabled)),
-            intArrayOf(Color.parseColor("#FFFFFF"))
+            intArrayOf(resources.getColor(R.color.white))
           )
           isCloseIconVisible = true
           setOnCloseIconClickListener {
