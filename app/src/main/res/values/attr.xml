@@ -2,6 +2,9 @@
 <resources>
   <attr name="Primary" format="color"/>
   <attr name="Secondary" format="color"/>
+  <attr name="Contrast" format="color"/>
+  <attr name="Contrast2" format="color"/>
+  <attr name="Base" format="color"/>
 
   <attr name="Neutral300" format="color"/>
   <attr name="Neutral500" format="color"/>

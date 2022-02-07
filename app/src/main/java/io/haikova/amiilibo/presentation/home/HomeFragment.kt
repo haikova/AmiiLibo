@@ -112,11 +112,11 @@ class HomeFragment : Fragment() {
         binding.filterButton.apply {
           imageTintList = ColorStateList(
             arrayOf(intArrayOf(android.R.attr.state_enabled)),
-            intArrayOf(context.getColorFromAttr(R.attr.Secondary))
+              intArrayOf(context.getColorFromAttr(R.attr.Secondary))
           )
           supportBackgroundTintList = ColorStateList(
             arrayOf(intArrayOf(android.R.attr.state_enabled)),
-            intArrayOf(resources.getColor(R.color.white))
+            intArrayOf(context.getColorFromAttr(R.attr.Contrast2))
           )
         }
       } else {
