@@ -1,6 +1,7 @@
 package io.haikova.amiilibo.presentation.home.adapter
 
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.RequestManager
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import io.haikova.amiilibo.R
@@ -51,4 +52,19 @@ object MainAdapterDelegates {
     adapterDelegateViewBinding<AmiiboLoadingItem, ListItem, ItemHomeLoadingAmiiboBinding>(
       { layoutInflater, root -> ItemHomeLoadingAmiiboBinding.inflate(layoutInflater, root, false) }
     ) {}
+
+  val differCallback: DiffUtil.ItemCallback<ListItem> = object : DiffUtil.ItemCallback<ListItem>() {
+    override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
+      return if (oldItem is AmiiboItem && newItem is AmiiboItem) {
+        oldItem.id == newItem.id
+      } else false
+    }
+
+    override fun areContentsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
+      return if (oldItem is AmiiboItem && newItem is AmiiboItem) {
+        oldItem == newItem
+      } else false
+    }
+  }
+
 }

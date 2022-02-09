@@ -11,11 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
+import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.FragemntAmiiboListBinding
 import io.haikova.amiilibo.presentation.amiibo.AmiiboDetailsActivity
+import io.haikova.amiilibo.presentation.common.ListItem
 import io.haikova.amiilibo.presentation.home.adapter.MainAdapterDelegates
 
 @AndroidEntryPoint
@@ -28,11 +31,13 @@ class AmiiboListFragment : Fragment() {
 
   private val glide by lazy { Glide.with(this) }
   private val amiiboAdapter by lazy {
-    ListDelegationAdapter(
-      MainAdapterDelegates.amiiboDelegate(glide) {
-        openDetailsScreen(it.id)
-      },
-      MainAdapterDelegates.amiiboLoadingDelegate()
+    AsyncListDifferDelegationAdapter(
+      MainAdapterDelegates.differCallback,
+      AdapterDelegatesManager<List<ListItem>>()
+        .addDelegate(MainAdapterDelegates.amiiboDelegate(glide) {
+          openDetailsScreen(it.id)
+        })
+        .addDelegate(MainAdapterDelegates.amiiboLoadingDelegate())
     )
   }
 
@@ -57,14 +62,12 @@ class AmiiboListFragment : Fragment() {
           binding.emptyTitleTextView.text = it.title
           binding.emptyTextView.text = it.text
           amiiboAdapter.items = data
-          amiiboAdapter.notifyDataSetChanged()
         }
       } else {
         binding.emptyIcon.isVisible = false
         binding.emptyTitleTextView.isVisible = false
         binding.emptyTextView.isVisible = false
         amiiboAdapter.items = data
-        amiiboAdapter.notifyDataSetChanged()
       }
     }
   }

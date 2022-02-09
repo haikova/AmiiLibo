@@ -16,6 +16,8 @@ import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
+import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
+import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
@@ -39,11 +41,13 @@ class HomeFragment : Fragment() {
 
   private val glide by lazy { Glide.with(this) }
   private val amiiboAdapter by lazy {
-    ListDelegationAdapter(
-      MainAdapterDelegates.amiiboDelegate(glide) {
-        openDetailsScreen(it.id)
-      },
-      MainAdapterDelegates.amiiboLoadingDelegate()
+    AsyncListDifferDelegationAdapter(
+      MainAdapterDelegates.differCallback,
+      AdapterDelegatesManager<List<ListItem>>()
+        .addDelegate(MainAdapterDelegates.amiiboDelegate(glide) {
+          openDetailsScreen(it.id)
+        })
+        .addDelegate(MainAdapterDelegates.amiiboLoadingDelegate())
     )
   }
 
@@ -70,7 +74,6 @@ class HomeFragment : Fragment() {
 
       sarchTextField.editText?.setText(viewModel.searchData.value)
       sarchTextField.editText?.setOnFocusChangeListener { view, focused ->
-        Log.d("meow", "meow edittext $focused")
         viewModel.changeState(focused, (view as? EditText)?.text?.toString() ?: "")
       }
       sarchTextField.editText?.doOnTextChanged { text, start, before, count ->
@@ -89,7 +92,6 @@ class HomeFragment : Fragment() {
 
     viewModel.amiiboData.observe(viewLifecycleOwner, { data ->
       amiiboAdapter.items = data
-      amiiboAdapter.notifyDataSetChanged()
     })
 
     optionsViewModel.selected.observe(viewLifecycleOwner) { data ->

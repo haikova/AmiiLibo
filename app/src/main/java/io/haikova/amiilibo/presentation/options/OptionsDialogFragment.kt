@@ -1,32 +1,21 @@
 package io.haikova.amiilibo.presentation.options
 
-import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.chip.Chip
-import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.FragmentOptionsBinding
-import io.haikova.amiilibo.presentation.home.adapter.MainAdapterDelegates
 import io.haikova.amiilibo.presentation.options.adapter.FilterAdapterDelegates
 import android.widget.FrameLayout
-
 import com.google.android.material.bottomsheet.BottomSheetDialog
-
-import android.content.DialogInterface
-import android.content.DialogInterface.OnShowListener
-
-import androidx.annotation.NonNull
-import io.haikova.amiilibo.presentation.options.adapter.OptionItem
+import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
+import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
+import io.haikova.amiilibo.presentation.common.ListItem
 import io.haikova.amiilibo.toPx
 
 
@@ -38,13 +27,15 @@ class OptionsDialogFragment : BottomSheetDialogFragment() {
 
   private val optionsViewModel: OptionsViewModel by activityViewModels()
 
-  private val adapter by lazy {
-    ListDelegationAdapter(
-      FilterAdapterDelegates.titleDelegate(),
-      FilterAdapterDelegates.optionsListDelegate { optionsViewModel.optionClicked(it) }
+  private val filtersAdapter by lazy {
+    AsyncListDifferDelegationAdapter(
+      FilterAdapterDelegates.differCallback,
+      AdapterDelegatesManager<List<ListItem>>()
+        .addDelegate(FilterAdapterDelegates.titleDelegate())
+        .addDelegate(FilterAdapterDelegates.optionsListDelegate { optionsViewModel.optionClicked(it) })
     )
   }
-  
+
   override fun getTheme() = R.style.BottomSheetDialogTheme
 
   override fun onCreateView(
@@ -60,31 +51,25 @@ class OptionsDialogFragment : BottomSheetDialogFragment() {
       val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
       bottomSheetBehavior.peekHeight = 375.toPx()
       bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-      bottomSheetBehavior.addBottomSheetCallback(object :
-        BottomSheetBehavior.BottomSheetCallback() {
-        override fun onStateChanged(bottomSheet: View, newState: Int) {
-          Log.d("meow", "meow $newState")
-        }
-
-        override fun onSlide(bottomSheet: View, slideOffset: Float) {
-        }
-
-      })
     }
 
     return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    binding.recyclerView.adapter = adapter
-    binding.closeButton.setOnClickListener {
-      dialog?.dismiss()
+    with(binding) {
+      recyclerView.apply {
+        itemAnimator = null
+        adapter = filtersAdapter
+      }
+      closeButton.setOnClickListener {
+        dialog?.dismiss()
+      }
     }
 
-    optionsViewModel.data.observe(viewLifecycleOwner, { data ->
-      adapter.items = data
-      adapter.notifyDataSetChanged()
-    })
+    optionsViewModel.data.observe(viewLifecycleOwner) { data ->
+      filtersAdapter.items = data
+    }
   }
 
 
