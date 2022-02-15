@@ -4,44 +4,43 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:focusableInTouchMode="true"
   android:clickable="true"
-  android:focusable="true">
+  android:focusable="true"
+  android:focusableInTouchMode="true">
 
   <androidx.cardview.widget.CardView
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:elevation="6dp"
-    app:cardCornerRadius="25dp"
     app:cardBackgroundColor="?Contrast2"
-    app:layout_constraintTop_toTopOf="@id/sarchTextField"
-    app:layout_constraintStart_toStartOf="@id/sarchTextField"
-    app:layout_constraintEnd_toEndOf="@id/sarchTextField"
-    app:layout_constraintBottom_toBottomOf="@id/sarchTextField"
-    />
+    app:cardCornerRadius="25dp"
+    app:layout_constraintBottom_toBottomOf="@id/searchTextField"
+    app:layout_constraintEnd_toEndOf="@id/searchTextField"
+    app:layout_constraintStart_toStartOf="@id/searchTextField"
+    app:layout_constraintTop_toTopOf="@id/searchTextField" />
 
   <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/sarchTextField"
+    android:id="@+id/searchTextField"
     style="@style/SearchTextFieldStyle"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
     android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
     android:layout_marginEnd="16dp"
-    app:hintEnabled="false"
-    android:hint=""
     android:elevation="10dp"
-    app:startIconDrawable="@drawable/ic_favourite"
+    android:hint=""
     app:endIconMode="clear_text"
+    app:hintEnabled="false"
     app:layout_constraintEnd_toStartOf="@id/filterButton"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    app:startIconDrawable="@drawable/ic_favourite">
 
     <com.google.android.material.textfield.TextInputEditText
-      android:hint="Search here"
-      android:background="@null"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+      android:layout_height="wrap_content"
+      android:background="@null"
+      android:hint="@string/search_here" />
 
   </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,6 +52,7 @@
     android:layout_marginTop="16dp"
     android:layout_marginEnd="16dp"
     android:backgroundTint="?Contrast2"
+    android:contentDescription="@null"
     app:backgroundTint="?Contrast2"
     app:borderWidth="2dp"
     app:fabCustomSize="44dp"
@@ -63,31 +63,31 @@
 
   <HorizontalScrollView
     android:id="@+id/chipsScrollView"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:paddingEnd="16dp"
-    android:paddingStart="16dp"
-    android:clipToPadding="false"
-    app:layout_constraintTop_toBottomOf="@id/sarchTextField"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:scrollbars="none">
+    android:clipToPadding="false"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:scrollbars="none"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/searchTextField">
 
     <com.google.android.material.chip.ChipGroup
       android:id="@+id/selectedOptionsChipGroup"
-      android:layout_marginTop="12dp"
-      app:singleLine="true"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content" />
+      android:layout_height="wrap_content"
+      android:layout_marginTop="12dp"
+      app:singleLine="true" />
   </HorizontalScrollView>
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerViewAmiibo"
-    android:focusableInTouchMode="true"
-    android:clickable="true"
-    android:focusable="true"
     android:layout_width="0dp"
     android:layout_height="0dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:padding="8dp"
     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -99,33 +99,33 @@
 
 
   <View
-    app:layout_constraintTop_toTopOf="@id/recyclerViewAmiibo"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
     android:layout_width="0dp"
     android:layout_height="16dp"
-    android:background="@drawable/list_top_gradient"/>
+    android:background="@drawable/list_top_gradient"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@id/recyclerViewAmiibo" />
 
   <View
     android:id="@+id/searchImageView"
     android:layout_width="180dp"
-    android:background="?Neutral500"
-    app:layout_constraintTop_toBottomOf="@id/chipsScrollView"
+    android:layout_height="180dp"
     android:layout_marginTop="54dp"
+    android:background="?Neutral500"
     android:visibility="gone"
-    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    android:layout_height="180dp"/>
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/chipsScrollView" />
 
   <TextView
     android:id="@+id/searchTextView"
-    android:textAppearance="@style/Heading2"
-    android:textColor="?Neutral500"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:layout_constraintTop_toBottomOf="@id/searchImageView"
-    android:text="Start Typing..."
+    android:text="@string/start_typing"
+    android:textAppearance="@style/Heading2"
+    android:textColor="?Neutral500"
     android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
+    app:layout_constraintTop_toBottomOf="@id/searchImageView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

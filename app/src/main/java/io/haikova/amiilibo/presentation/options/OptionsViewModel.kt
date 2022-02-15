@@ -54,8 +54,8 @@ class OptionsViewModel @Inject constructor(
     updateData(item)
   }
 
-  fun updateData(item: OptionItem) {
-    data.value?.let {
+  private fun updateData(item: OptionItem) {
+    data.value?.let { it ->
       val data = it.toMutableList()
       val optionsList = data.filterIsInstance<OptionsDataItem>().first {it.type == item.type}.optionslist.toMutableList()
       optionsList.forEachIndexed { index, optionItem ->
@@ -94,8 +94,4 @@ private fun OptionModel.item(isSelected: Boolean = false): OptionItem {
     isSelected = isSelected,
     type = OptionsType.valueOf(this.type.toString())
   )
-}
-
-enum class AmiiboOptionsType {
-  AMIIBO_SERIES, GAME_SERIES, AMIIBO_TYPE, CHARACTER
 }

@@ -1,9 +1,19 @@
 <resources>
-    <string name="app_name">AmiiLibo</string>
+  <string name="app_name">AmiiLibo</string>
 
-
-    <string name="jp_data">🇯🇵 %1$s</string>
-    <string name="eu_data">🇪🇺 %1$s</string>
-    <string name="na_data">🇺🇸 %1$s</string>
-    <string name="au_data">🇦🇺 %1$s</string>
+  <string name="jp_data">🇯🇵 %1$s</string>
+  <string name="eu_data">🇪🇺 %1$s</string>
+  <string name="na_data">🇺🇸 %1$s</string>
+  <string name="au_data">🇦🇺 %1$s</string>
+  <string name="amiibo_series">Amiibo Series</string>
+  <string name="released">Released</string>
+  <string name="remove_from_collection">Remove from Collection</string>
+  <string name="search_here">Search here</string>
+  <string name="start_typing">Start Typing…</string>
+  <string name="filters">Filters</string>
+  <string name="everything">Everything</string>
+  <string name="collection">Collection</string>
+  <string name="wish_list">Wish List</string>
+  <string name="game_series">Game Series</string>
+  <string name="character">Character</string>
 </resources>

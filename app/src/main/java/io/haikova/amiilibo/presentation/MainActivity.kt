@@ -3,21 +3,15 @@ package io.haikova.amiilibo.presentation
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.ActivityMainBinding
 import io.haikova.amiilibo.hideKeyboard
-import io.haikova.amiilibo.presentation.home.HomeFragment
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

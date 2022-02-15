@@ -3,10 +3,10 @@
     android:id="@+id/homeFragment"
     android:enabled="true"
     android:icon="@drawable/ic_collection"
-    android:title="Everything" />
+    android:title="@string/everything" />
   <item
     android:id="@+id/collectionFragment"
     android:enabled="true"
     android:icon="@drawable/ic_collection"
-    android:title="Collection" />
+    android:title="@string/collection" />
 </menu>

@@ -1,7 +1,6 @@
 package io.haikova.amiilibo.data.options
 
 import io.haikova.amiilibo.data.OptionModel
-import io.haikova.amiilibo.data.OptionsData
 
 interface OptionsRepository {
   fun getListOptions(): List<String>

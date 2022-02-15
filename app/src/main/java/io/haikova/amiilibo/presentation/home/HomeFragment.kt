@@ -1,9 +1,7 @@
 package io.haikova.amiilibo.presentation.home
 
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +10,14 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
-import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.data.AmiiboOptionsType
@@ -72,13 +71,13 @@ class HomeFragment : Fragment() {
 
       filterButton.setOnClickListener { openOptionsDialog() }
 
-      sarchTextField.editText?.setText(viewModel.searchData.value)
-      sarchTextField.editText?.setOnFocusChangeListener { view, focused ->
+      searchTextField.editText?.setText(viewModel.searchData.value)
+      searchTextField.editText?.setOnFocusChangeListener { view, focused ->
         viewModel.changeState(focused, (view as? EditText)?.text?.toString() ?: "")
       }
-      sarchTextField.editText?.doOnTextChanged { text, start, before, count ->
+      searchTextField.editText?.doOnTextChanged { text, start, before, count ->
         viewModel.setSearchData(text.toString())
-        viewModel.changeState(binding.sarchTextField.editText?.isFocused ?: false, binding.sarchTextField.editText?.text.toString())
+        viewModel.changeState(binding.searchTextField.editText?.isFocused ?: false, binding.searchTextField.editText?.text.toString())
       }
     }
 
@@ -90,9 +89,9 @@ class HomeFragment : Fragment() {
     }
 
 
-    viewModel.amiiboData.observe(viewLifecycleOwner, { data ->
+    viewModel.amiiboData.observe(viewLifecycleOwner) { data ->
       amiiboAdapter.items = data
-    })
+    }
 
     optionsViewModel.selected.observe(viewLifecycleOwner) { data ->
       updateOptionChips(data)
@@ -163,7 +162,7 @@ class HomeFragment : Fragment() {
     }
   }
 
-  fun openDetailsScreen(itemId: String) {
+  private fun openDetailsScreen(itemId: String) {
     val bundle = bundleOf(AmiiboDetailsActivity.ITEM_ID to itemId)
     findNavController().navigate(R.id.action_homeFragment_to_amiiboDetailsActivity, bundle)
   }

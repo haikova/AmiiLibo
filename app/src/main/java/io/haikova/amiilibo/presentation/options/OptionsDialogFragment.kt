@@ -21,7 +21,6 @@ import io.haikova.amiilibo.toPx
 
 @AndroidEntryPoint
 class OptionsDialogFragment : BottomSheetDialogFragment() {
-  lateinit var action: (AmiiboOptionsType, String) -> Unit
   private var _binding: FragmentOptionsBinding? = null
   private val binding get() = _binding!!
 
@@ -70,10 +69,5 @@ class OptionsDialogFragment : BottomSheetDialogFragment() {
     optionsViewModel.data.observe(viewLifecycleOwner) { data ->
       filtersAdapter.items = data
     }
-  }
-
-
-  companion object {
-    const val OPTIONS_TYPE = "Amiibo options type"
   }
 }

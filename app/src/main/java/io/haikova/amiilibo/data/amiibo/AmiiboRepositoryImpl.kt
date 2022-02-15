@@ -1,16 +1,18 @@
 package io.haikova.amiilibo.data.amiibo
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import io.haikova.amiilibo.data.*
+import io.haikova.amiilibo.data.AmiiboModel
+import io.haikova.amiilibo.data.AmiiboType
 import io.haikova.amiilibo.data.api.AmiiboApi
 import io.haikova.amiilibo.data.api.AmiiboDto
 import io.haikova.amiilibo.data.api.AmiiboResponseDto
-import io.haikova.amiilibo.data.db.*
+import io.haikova.amiilibo.data.db.AmiiboDao
+import io.haikova.amiilibo.data.db.AmiiboEntity
+import io.haikova.amiilibo.data.db.FavouriteUpdate
+import io.haikova.amiilibo.data.db.OwnedUpdate
 import io.haikova.amiilibo.presentation.home.AmiiboOptionsData
 import io.haikova.amiilibo.presentation.home.AmiiboPreferences
-import java.util.*
 import javax.inject.Inject
 
 class AmiiboRepositoryImpl @Inject constructor(
@@ -89,7 +91,7 @@ class AmiiboRepositoryImpl @Inject constructor(
         )
       } ?: emptyMap(),
       tail = this.tail,
-      type = AmiiboType.valueOf(this.type.toUpperCase(Locale.getDefault())),
+      type = AmiiboType.valueOf(this.type.uppercase()),
     )
   }
 
@@ -130,7 +132,7 @@ fun AmiiboEntity.model(): AmiiboModel {
       "na" to this.naRelease
     ),
     tail = this.tail,
-    type = AmiiboType.valueOf(this.type.toUpperCase(Locale.getDefault())),
+    type = AmiiboType.valueOf(this.type.uppercase()),
     isOwned = isOwned,
     isFavourite = isFavourite
   )

@@ -13,7 +13,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     android:layout_marginTop="16dp"
-    android:text="Filters"
+    android:text="@string/filters"
     android:textColor="?attr/colorSecondary"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
@@ -24,19 +24,20 @@
     android:layout_height="20dp"
     android:layout_marginTop="18dp"
     android:layout_marginEnd="18dp"
+    android:contentDescription="@null"
     android:src="@drawable/ic_close"
-    app:tint="#BDBDBD"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintTop_toTopOf="parent"
+    app:tint="#BDBDBD" />
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerView"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
-    android:paddingBottom="16dp"
     android:clipToPadding="false"
     android:orientation="vertical"
+    android:paddingBottom="16dp"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
@@ -44,18 +45,4 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/titleTextView"
     app:layout_constraintVertical_bias="0.0" />
-
-  <Button
-    android:id="@+id/ownButton"
-    style="@style/PrimaryButton"
-    android:layout_width="0dp"
-    android:layout_height="52dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="24dp"
-    android:text="Filter"
-    android:visibility="gone"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

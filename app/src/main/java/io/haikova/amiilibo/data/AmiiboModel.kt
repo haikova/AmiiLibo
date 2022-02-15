@@ -1,7 +1,5 @@
 package io.haikova.amiilibo.data
 
-import androidx.room.ColumnInfo
-
 data class AmiiboModel(
   val id: String,
   val amiiboSeries : String,

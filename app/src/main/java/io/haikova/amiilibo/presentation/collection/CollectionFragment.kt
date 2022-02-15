@@ -1,7 +1,6 @@
 package io.haikova.amiilibo.presentation.collection
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import io.haikova.amiilibo.databinding.FragmentCollectionBinding
-import io.haikova.amiilibo.databinding.FragmentHomeBinding
 import io.haikova.amiilibo.presentation.amiibolist.AmiiboListFragment
 
 class CollectionFragment : Fragment() {

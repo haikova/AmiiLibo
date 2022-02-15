@@ -2,7 +2,6 @@ package io.haikova.amiilibo.data.options
 
 import io.haikova.amiilibo.data.AmiiboOptionsType
 import io.haikova.amiilibo.data.OptionModel
-import io.haikova.amiilibo.data.OptionsData
 import io.haikova.amiilibo.data.api.AmiiboApi
 import io.haikova.amiilibo.data.api.AmiiboOptionsResponseDto
 import io.haikova.amiilibo.data.db.AmiiboDao

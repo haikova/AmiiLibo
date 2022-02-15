@@ -14,8 +14,8 @@ class HomeInteractorImpl @Inject constructor(
   private val optionsRepository: OptionsRepository
 ) : HomeInteractor {
 
-  val amiiboData = Channel<List<AmiiboModel>>(Channel.CONFLATED)
-  val progressData = Channel<Boolean>(Channel.CONFLATED)
+  private val amiiboData = Channel<List<AmiiboModel>>(Channel.CONFLATED)
+  private val progressData = Channel<Boolean>(Channel.CONFLATED)
 
   override suspend fun getAmiiboData(): Flow<List<AmiiboModel>> = amiiboData.consumeAsFlow()
   override suspend fun getProgressData(): Flow<Boolean> = progressData.consumeAsFlow()

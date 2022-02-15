@@ -4,14 +4,9 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -21,7 +16,6 @@ import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.ActivityAmiiboDetailsBinding
-import io.haikova.amiilibo.databinding.ActivityMainBinding
 
 
 @AndroidEntryPoint

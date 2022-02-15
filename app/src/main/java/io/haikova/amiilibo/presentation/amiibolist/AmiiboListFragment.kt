@@ -1,7 +1,6 @@
 package io.haikova.amiilibo.presentation.amiibolist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
-import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.FragemntAmiiboListBinding
@@ -72,7 +70,7 @@ class AmiiboListFragment : Fragment() {
     }
   }
 
-  fun openDetailsScreen(itemId: String) {
+  private fun openDetailsScreen(itemId: String) {
     val bundle = bundleOf(AmiiboDetailsActivity.ITEM_ID to itemId)
     findNavController().navigate(R.id.action_collectionFragment_to_amiiboDetailsActivity, bundle)
   }
@@ -82,6 +80,6 @@ class AmiiboListFragment : Fragment() {
   }
 
   companion object {
-    val LIST_TYPE = "list_type"
+    const val LIST_TYPE = "list_type"
   }
 }

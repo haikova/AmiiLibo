@@ -22,7 +22,7 @@ object FilterAdapterDelegates {
     }
   }
 
-  fun optionDelegate(
+  private fun optionDelegate(
     itemClickedListener: (OptionItem) -> Unit
   ) = adapterDelegateViewBinding<OptionItem, ListItem, ItemOptionBinding>(
     { layoutInflater, root -> ItemOptionBinding.inflate(layoutInflater, root, false) }
@@ -51,9 +51,7 @@ object FilterAdapterDelegates {
       )
       binding.optionsRecyclerView.adapter = adapter
       bind {
-        with(binding) {
-          adapter.items = item.optionslist
-        }
+        adapter.items = item.optionslist
       }
     }
 

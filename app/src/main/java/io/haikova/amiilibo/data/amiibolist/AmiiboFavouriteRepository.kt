@@ -5,7 +5,6 @@ import androidx.lifecycle.map
 import io.haikova.amiilibo.data.AmiiboModel
 import io.haikova.amiilibo.data.amiibo.model
 import io.haikova.amiilibo.data.db.AmiiboDao
-import io.haikova.amiilibo.data.db.AmiiboEntity
 import javax.inject.Inject
 
 class AmiiboFavouriteRepository @Inject constructor(
