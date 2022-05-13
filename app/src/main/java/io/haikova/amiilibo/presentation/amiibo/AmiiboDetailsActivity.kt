@@ -1,21 +1,14 @@
 package io.haikova.amiilibo.presentation.amiibo
 
-import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toBitmap
-import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
 import io.haikova.amiilibo.R
 import io.haikova.amiilibo.databinding.ActivityAmiiboDetailsBinding
+import io.haikova.amiilibo.presentation.amiibo.di.AmiiboDetailsScreen
+import io.haikova.amiilibo.theme.AppTheme
 
 
 @AndroidEntryPoint
@@ -32,6 +25,11 @@ class AmiiboDetailsActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     _binding = ActivityAmiiboDetailsBinding.inflate(layoutInflater)
     val view = binding.root
+    binding.amiiboImage.setContent {
+      AppTheme {
+        AmiiboDetailsScreen()
+      }
+    }
     setContentView(view)
 
     binding.toolbar.setOnClickListener {
@@ -39,42 +37,6 @@ class AmiiboDetailsActivity : AppCompatActivity() {
     }
     viewModel.amiiboData.observe(this) { amiibo ->
       with(binding) {
-        glide
-          .load(amiibo.image)
-          .listener(object : RequestListener<Drawable> {
-            override fun onLoadFailed(
-              e: GlideException?,
-              model: Any?,
-              target: Target<Drawable>?,
-              isFirstResource: Boolean
-            ): Boolean {
-              return false
-            }
-
-            override fun onResourceReady(
-              resource: Drawable?,
-              model: Any?,
-              target: Target<Drawable>?,
-              dataSource: DataSource?,
-              isFirstResource: Boolean
-            ): Boolean {
-              resource?.toBitmap()?.let { bitmap ->
-                Palette.Builder(bitmap).generate {
-                  it?.let { palette ->
-                    val colorFrom = palette.getVibrantColor(Color.WHITE)
-                    val colorTo = palette.getMutedColor(Color.WHITE)
-
-                    gradientView.background = GradientDrawable(
-                      GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(colorFrom, colorTo)
-                    )
-                    gradientView.animate().alpha(1f).start()
-                  }
-                }
-              }
-              return false
-            }
-          })
-          .into(amiiboImage)
 
         nameData.text = amiibo.name
         amiiboSeriesData.text = amiibo.amiiboSeries

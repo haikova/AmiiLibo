@@ -5,14 +5,25 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
+  <androidx.compose.ui.platform.ComposeView
+    android:id="@+id/amiiboImage"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
   <com.google.android.material.appbar.AppBarLayout
     android:id="@+id/appBarLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
+    android:visibility="gone"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    tools:visibility="visible">
 
     <com.google.android.material.appbar.MaterialToolbar
       android:id="@+id/toolbar"
@@ -30,21 +41,25 @@
     android:layout_height="216dp"
     android:alpha="0"
     android:contentDescription="@null"
+    android:visibility="gone"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/appBarLayout"
     tools:alpha="1"
-    tools:background="@color/red_e1" />
+    tools:background="@color/red_e1"
+    tools:visibility="visible" />
 
   <androidx.core.widget.NestedScrollView
     android:id="@+id/bottomSheet"
     android:layout_width="0dp"
     android:layout_height="0dp"
+    android:visibility="gone"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/appBarLayout">
+    app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+    tools:visibility="visible">
 
     <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
@@ -57,13 +72,13 @@
         android:background="@drawable/rounded_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
       <ImageView
-        android:id="@+id/amiiboImage"
+        android:id="@+id/amiiboImageOld"
         android:layout_width="wrap_content"
         android:layout_height="234dp"
         android:layout_gravity="center_horizontal"
@@ -85,7 +100,7 @@
         android:textColor="?colorSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/amiiboImage"
+        app:layout_constraintTop_toBottomOf="@id/amiiboImageOld"
         app:lineHeight="36sp"
         tools:text="Mario" />
 
@@ -236,9 +251,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
+    android:visibility="gone"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent">
+    app:layout_constraintStart_toStartOf="parent"
+    tools:visibility="visible">
 
     <Button
       android:id="@+id/ownButton"
