@@ -264,7 +264,7 @@ fun ButtonsContainer(
       shape = RoundedCornerShape(30.dp)
     ) {
       Text(
-        text = if (amiibo.isOwned) "Remove from Collection" else "Add to Collection",
+        text = stringResource(if (amiibo.isOwned) R.string.remove_from_collection else R.string.add_to_collection),
         style = Button,
         color = white,
       )
